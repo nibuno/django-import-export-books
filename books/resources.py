@@ -66,8 +66,10 @@ class BookResource(resources.ModelResource):
     """
 
     # ForeignKeyフィールドの定義
-    # ForeignKeyWidgetを使うことで、関連モデルの特定フィールド（ここではname）を
-    # エクスポート時は値として出力し、インポート時は検索キーとして使用する
+    # エクスポート時はForeignKeyWidgetがなくても__str__の値が出力される
+    # ForeignKeyWidgetはインポート時に名前から関連モデルを検索して紐付けるために必要
+    # 仮に指定していない場合、以下のようなエラーが出る
+    # Cannot assign "'株式会社ビープラウド'": "Book.author" must be a "Author" instance.
     author = fields.Field(
         # CSV/JSONでのカラム名
         column_name='author',
