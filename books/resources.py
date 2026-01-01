@@ -90,8 +90,8 @@ class BookResource(resources.ModelResource):
         # ISBNで書籍を識別（一意なのでIDの代わりに使える）
         import_id_fields = ['isbn']
 
-        # インポート/エクスポート対象フィールド
-        fields = ('title', 'isbn', 'author', 'publisher', 'published_date', 'price', 'url')
+        # 除外フィールド（これ以外は自動的にインポート/エクスポート対象になる）
+        exclude = ('id',)
 
         # エクスポート時のカラム順序
         export_order = ('title', 'isbn', 'author', 'publisher', 'published_date', 'price', 'url')
