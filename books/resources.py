@@ -67,6 +67,8 @@ class BookResource(resources.ModelResource):
 
     # ForeignKeyフィールドの定義
     # エクスポート時はForeignKeyWidgetがなくても__str__の値が出力される
+    # 指定した場合は、widgetの挙動に従う（ここでは'name'フィールドの値をエクスポート・インポートで使う）
+
     # ForeignKeyWidgetはインポート時に名前から関連モデルを検索して紐付けるために必要
     # 仮に指定していない場合、以下のようなエラーが出る
     # Cannot assign "'株式会社ビープラウド'": "Book.author" must be a "Author" instance.
