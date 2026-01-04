@@ -65,6 +65,20 @@ class BookResource(resources.ModelResource):
     関連モデルとの紐付け方法をFieldとWidgetで明示的に定義する。
     """
 
+    # 削除フラグ用のフィールド
+    # インポート時に delete=1 の行は削除対象となる
+    delete = fields.Field(column_name='delete', default='')
+
+    def for_delete(self, row, instance):
+        """
+        行を削除するかどうかを判定する
+
+        CSVの'delete'列が'1'の場合、該当レコードを削除する。
+        削除対象の行は、既存レコードが存在する場合のみ削除される。
+        （新規レコードに delete=1 が指定されている場合はスキップされる）
+        """
+        return row.get('delete') == '1'
+
     # ForeignKeyフィールドの定義
     # エクスポート時はForeignKeyWidgetがなくても__str__の値が出力される
     # 指定した場合は、widgetの挙動に従う（ここでは'name'フィールドの値をエクスポート・インポートで使う）
