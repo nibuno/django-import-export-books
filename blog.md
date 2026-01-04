@@ -1,6 +1,6 @@
 [django-import-export](https://django-import-export.readthedocs.io/en/latest/)は、Django Admin画面でインポート機能・エクスポート機能を行うことのできるライブラリです。
 
-Excel、CSV、JSONなどの複数の形式にも対応しており、要件上、操作画面がDjango Admin画面でも良い場合は有力な選択肢になります。触る機会があるので、理解のためにまとめます。
+CSV、JSONなどの複数の形式にも対応しており、要件上、操作画面がDjango Admin画面でも良い場合は有力な選択肢になります。触る機会があるので、理解のためにまとめます。
 
 ## サンプルコード
 
@@ -76,9 +76,9 @@ ER図にすると、次のようになります。
 
 ### resources.py
 
-※公式リファレンス上はmodels.pyに書かれているコードを確認しましたが、今回はわかりやすさのため別途resources.pyに分けています。
-
 次に、resources.pyを作成します。ここでは、`Resource`クラスを定義します。
+
+※公式リファレンス上にはresources.pyを作成するようなことは説明されておらず、admin.pyにまとめていましたが、今回は理解のしやすさのため別ファイルとして切り出しました。
 
 ```python
 from import_export import fields, resources
@@ -141,14 +141,16 @@ e.g. `model = Author`
 
 e.g. `import_id_fields = ['name']`
 
-インポート時にidとして扱うフィールドを定義します。ここで指定したフィールドをもとに、既存レコードの更新や新規登録が行われます。`AuthorResource`と`PublisherResource`はuniqueなフィールドでもあることから、`name`フィールドを指定していて、`BookResource`では`isbn`フィールドを指定しています。
+インポート時にidとして扱うフィールドを定義します。
+
+未指定な場合は`id`を用います。ここで指定したフィールドをもとに、既存レコードの更新や新規登録が行われます。`AuthorResource`と`PublisherResource`はuniqueなフィールドでもあることから、`name`フィールドを指定していて、`BookResource`では`isbn`フィールドを指定しています。
 
 
 #### fields
 
 e.g. `fields = ('name',)`
 
-インポート/エクスポート対象のフィールドです。ここで指定したフィールドのみが対象となります。
+インポート/エクスポート対象のフィールドを絞り込みたい時に指定します。ここでは`name`フィールドのみを対象としています。`fields`を指定しない場合は、すべてのフィールドが対象となります。
 
 #### exclude
 
@@ -158,12 +160,12 @@ e.g. `exclude = ('id',)`
 #### skip_unchanged
 
 e.g. `skip_unchanged = True`
-インポート時に、変更がないレコードはスキップするかどうかを指定します。`True`に設定すると、変更がない場合はスキップされ、処理が高速化されます。
+インポート時に、変更がないレコードはスキップするかどうかを指定します。`True`に設定すると、変更がない場合はスキップされます。更新する必要が無ければ`True`で良いと考えています。
 
 #### report_skipped
 
 e.g. `report_skipped = False`
-スキップしたレコードをレポート（インポート後の画面）に含めるかどうかを指定します。`False`に設定すると、スキップされたレコードはレポートに含まれません。
+スキップしたレコードをレポート（インポート後の画面）に含めるかどうかを指定します。`False`に設定すると、スキップされたレコードはレポートに含まれません。こちらも必要なければ`False`で良いと考えています。
 
 #### export_order
 
@@ -186,9 +188,11 @@ author = fields.Field(
 
 `column_name`でCSV/JSONのカラム名を指定し、`attribute`でモデルのフィールド名を指定します。
 
-`widget`には`ForeignKeyWidget`を使い、関連するモデルとその識別フィールドを指定します。この例だと、`Author`モデルの`name`フィールドを使って紐付けています。
+`widget`には`ForeignKeyWidget`を使い、関連するモデルとその識別フィールドを指定します。この例だと、uniqueに設定済である`Author`モデルの`name`フィールドを使って紐付けています。
 
-極論、`ForeignKeyWidget`を使わないことも可能ですが、見た目的にわかりにくい & インポート/エクスポートをする際、例えば別環境に取り込むことを考えると、外部キーのIDに依存しない方が良いことから、`ForeignKeyWidget`を使うことを推奨します。
+ちなみに、`ForeignKeyWidget`を使わない場合は、エクスポート時はモデルの`__str__`の内容でエクスポートされるので問題ないですが、インポートしようとした際には、次の画像のようにエラーとなりました。リファレンスを確認したところ、`field`を指定しないと、`pk`として扱われるように記述があり、プレビュー画面のことを考えると`name`など、別の識別子として扱えるカラムがある方が見やすそうです。
+
+[f:id:nibutan:20260104142439p:plain]
 
 ### admin.py
 
@@ -237,9 +241,9 @@ class BookAdmin(ImportExportAdmin):
     search_fields = ('title', 'isbn')
 ```
 
-## ダウンロードしたCSV
+## ダウンロードしたCSVについて
 
-登録した内容については本記事では省略していますが、既にサンプルデータを用意しており、管理画面からエクスポートしたCSVは以下のようになります。
+登録した内容については本記事では省略していますが、管理画面からエクスポートしたCSVは以下のようになります。
 
 ```csv
 title,isbn,author,publisher,published_date,price,url
@@ -247,13 +251,25 @@ Pythonプロフェッショナルプログラミング 第4版,978-4-7980-7054-4
 自走プログラマー,978-4-297-11197-7,株式会社ビープラウド,技術評論社,2020-02-27,2948,https://jisou-programmer.beproud.jp/
 ```
 
+## import / export の操作について
+
 一度、レコードを削除してみます。
 
-次のようにインポートが可能になります。
+<figure class="figure-image figure-image-fotolife" title="既存レコードの削除">[f:id:nibutan:20260104103748p:plain]<figcaption>既存レコードの削除</figcaption></figure>
 
-インポートできました。
+右上の「インポート」を押下すると、次のようにインポート画面へ遷移します。
 
-ちなみに、変更点があった場合は次のようになります。
+<figure class="figure-image figure-image-fotolife" title="インポート画面">[f:id:nibutan:20260104103814p:plain]<figcaption>インポート画面</figcaption></figure>
+
+そこでファイルを選択して確定を謳歌します。
+
+すると、インポートのプレビュー画面に遷移します。
+
+<figure class="figure-image figure-image-fotolife" title="インポート後のプレビュー画面">[f:id:nibutan:20260104103947p:plain]<figcaption>インポート後のプレビュー画面</figcaption></figure>
+
+インポート実行を押下すると、インポートできました。
+
+<figure class="figure-image figure-image-fotolife" title="インポート完了">[f:id:nibutan:20260104104017p:plain]<figcaption>インポート完了</figcaption></figure>
 
 ## 参考リンク
 
