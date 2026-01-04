@@ -1,6 +1,6 @@
 [django-import-export](https://django-import-export.readthedocs.io/en/latest/)は、Django Admin画面でインポート機能・エクスポート機能を行うことのできるライブラリです。
 
-Excel、CSV、JSONなどの複数の形式にも対応しており、要件上Django Admin画面でも良い場合は有力な選択肢になります。
+Excel、CSV、JSONなどの複数の形式にも対応しており、要件上、操作画面がDjango Admin画面でも良い場合は有力な選択肢になります。触る機会があるので、理解のためにまとめます。
 
 ## サンプルコード
 
@@ -16,7 +16,7 @@ Excel、CSV、JSONなどの複数の形式にも対応しており、要件上Dj
 * 出版社テーブル
 * 本テーブル
 
-の3テーブルを用意します。
+の3テーブルを用意します。この辺りは特筆するものはないですが、意図的にunique制約を付与しています。((実際には著者名にuniqueを付与するのは微妙だと思いますが、今回はサンプルコードなので付与しました。))
 
 ```python
 from django.db import models
@@ -76,20 +76,11 @@ ER図にすると、次のようになります。
 
 ### resources.py
 
-※公式リファレンス上は特に言及は無いのですが、分けることにします。公式リファレンス上はmodels.pyに書かれているコードを確認しました。
+※公式リファレンス上はmodels.pyに書かれているコードを確認しましたが、今回はわかりやすさのため別途resources.pyに分けています。
 
-次に、resources.pyを作成します。
+次に、resources.pyを作成します。ここでは、`Resource`クラスを定義します。
 
 ```python
-"""
-django-import-export用のリソース定義モジュール
-
-Resourceクラスは、DjangoモデルとCSV/JSON等のファイル形式との間の
-インポート・エクスポート処理を定義します。
-各モデルに対応するResourceクラスを作成することで、
-管理画面からのインポート/エクスポート機能が利用可能になります。
-"""
-
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget
 
@@ -97,40 +88,16 @@ from .models import Author, Book, Publisher
 
 
 class AuthorResource(resources.ModelResource):
-    """
-    Authorモデル用のリソースクラス
-
-    ModelResourceを継承することで、モデルのフィールドを自動的に
-    インポート/エクスポート対象として認識します。
-    """
 
     class Meta:
-        # 対象となるDjangoモデル
         model = Author
-
-        # インポート時にレコードを識別するフィールド
-        # 通常はpk(id)が使われるが、ここでは'name'で識別する
-        # これにより、別環境でもIDに依存せずデータを同期できる
         import_id_fields = ['name']
-
-        # インポート/エクスポート対象のフィールド
         fields = ('name',)
-
-        # インポート時、データに変更がなければスキップする
-        # パフォーマンス向上と不要な更新を防ぐ
         skip_unchanged = True
-
-        # スキップしたレコードをレポートに含めない
-        # Trueにするとスキップ理由が表示されるが、件数が多いと見づらくなる
         report_skipped = False
 
 
 class PublisherResource(resources.ModelResource):
-    """
-    Publisherモデル用のリソースクラス
-
-    AuthorResourceと同様の設定。名前で識別する。
-    """
 
     class Meta:
         model = Publisher
@@ -141,28 +108,10 @@ class PublisherResource(resources.ModelResource):
 
 
 class BookResource(resources.ModelResource):
-    """
-    Bookモデル用のリソースクラス
 
-    ForeignKey（author, publisher）を持つため、
-    関連モデルとの紐付け方法をFieldとWidgetで明示的に定義する。
-    """
-
-    # ForeignKeyフィールドの定義
-    # エクスポート時はForeignKeyWidgetがなくても__str__の値が出力される
-    # 指定した場合は、widgetの挙動に従う（ここでは'name'フィールドの値をエクスポート・インポートで使う）
-
-    # ForeignKeyWidgetはインポート時に名前から関連モデルを検索して紐付けるために必要
-    # 仮に指定していない場合、以下のようなエラーが出る
-    # Cannot assign "'株式会社ビープラウド'": "Book.author" must be a "Author" instance.
     author = fields.Field(
-        # CSV/JSONでのカラム名
         column_name='author',
-        # Bookモデルのフィールド名
         attribute='author',
-        # Authorモデルの'name'フィールドで紐付け
-        # エクスポート: author.nameの値を出力
-        # インポート: name=<値>でAuthorを検索して紐付け
         widget=ForeignKeyWidget(Author, field='name'),
     )
     publisher = fields.Field(
@@ -173,41 +122,81 @@ class BookResource(resources.ModelResource):
 
     class Meta:
         model = Book
-
-        # ISBNで書籍を識別（一意なのでIDの代わりに使える）
         import_id_fields = ['isbn']
-
-        # 除外フィールド（これ以外は自動的にインポート/エクスポート対象になる）
         exclude = ('id',)
-
-        # エクスポート時のカラム順序
         export_order = ('title', 'isbn', 'author', 'publisher', 'published_date', 'price', 'url')
-
         skip_unchanged = True
         report_skipped = False
-
 ```
+
+以下に各フィールドの説明を記載します。
 
 #### model
 
-* 通常のmodelのように、対象のmodelのクラス名を定義します。
+e.g. `model = Author`
+
+通常のmodelのように、対象のmodelのクラス名を定義します。ここは見たままですね。
 
 #### import_id_fields
 
-* インポート時にレコードを識別するフィールドです。
+e.g. `import_id_fields = ['name']`
+
+インポート時にidとして扱うフィールドを定義します。ここで指定したフィールドをもとに、既存レコードの更新や新規登録が行われます。`AuthorResource`と`BookResource`はuniqueなフィールドでもあることから、`name`フィールドを指定していて、`BookResource`では`isbn`フィールドを指定しています。
 
 
 #### fields
 
-* インポート/エクスポート対象のフィールドです
+e.g. `fields = ('name',)`
 
-### admin.py
+インポート/エクスポート対象のフィールドです。ここで指定したフィールドのみが対象となります。
 
-続いてadmin.pyです。admin.pyでは`django-import-export`の`ImportExportModelAdmin`を継承して
+#### exclude
+
+e.g. `exclude = ('id',)`
+インポート/エクスポート対象から除外するフィールドです。ここではDjangoの自動採番される`id`フィールドを除外しています。`fields`は指定しないと出力されないので、カラムが増えたら自動的に追加したい場合は`exclude`を使うと良いと考えます。
+
+#### skip_unchanged
+
+e.g. `skip_unchanged = True`
+インポート時に、変更がないレコードはスキップするかどうかを指定します。`True`に設定すると、変更がない場合はスキップされ、処理が高速化されます。
+
+#### report_skipped
+
+e.g. `report_skipped = False`
+スキップしたレコードをレポート（インポート後の画面）に含めるかどうかを指定します。`False`に設定すると、スキップされたレコードはレポートに含まれません。
+
+#### export_order
+
+e.g. `export_order = ('title', 'isbn', 'author', 'publisher', 'published_date', 'price', 'url')`
+エクスポート時のカラム順序を指定します。
 
 #### fields.Field
 
-外部キーに対しては、必要に応じてForeignKeyWidgetを定義します。
+e.g.
+
+```python
+author = fields.Field(
+    column_name='author',
+    attribute='author',
+    widget=ForeignKeyWidget(Author, field='name'),
+)
+```
+
+外部キーに対しては、`fields.Field`を使って定義します。
+
+`column_name`でCSV/JSONのカラム名を指定し、`attribute`でモデルのフィールド名を指定します。
+
+`widget`には`ForeignKeyWidget`を使い、関連するモデルとその識別フィールドを指定します。この例だと、`Author`モデルの`name`フィールドを使って紐付けています。
+
+極論、`ForeignKeyWidget`を使わないことも可能ですが、見た目的にわかりにくい & インポート/エクスポートをする際、例えば別環境に取り込むことを考えると、外部キーのIDに依存しない方が良いことから、`ForeignKeyWidget`を使うことを推奨します。
+
+### admin.py
+
+最後にadmin.pyです。
+
+今回のサンプルコードのadmin.pyでは`django-import-export`の`ImportExportModelAdmin`を継承して基底クラスを用意し、各モデルは基底クラスを継承し、resource_classを指定しています。
+
+今触れた2点は`django-import-export`特有の設定ですが、基本的にはDjango Admin画面のカスタマイズと同じです。
 
 ```python
 from django.contrib import admin
@@ -219,8 +208,6 @@ from .resources import AuthorResource, BookResource, PublisherResource
 
 
 class ImportExportAdmin(ImportExportModelAdmin):
-    """CSV/JSONのインポート・エクスポートに対応した管理画面の基底クラス"""
-
     def get_export_formats(self):
         return [CSV, JSON]
 
@@ -268,6 +255,13 @@ Pythonプロフェッショナルプログラミング 第4版,978-4-7980-7054-4
 インポートできました。
 
 ちなみに、変更点があった場合は次のようになります。
+
+## 削除する場合（これは別記事で良さそう）
+
+ちなみに、CSVに無いレコードを削除する場合は、以下の方法があります。
+
+1. `for_delete`メソッドをオーバーライドして、削除するかどうかを判定する
+2. `import_id_fields`で指定したフィールドをもとに、CSVに無いレコードを削除する
 
 ## 参考リンク
 
