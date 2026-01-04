@@ -141,7 +141,7 @@ e.g. `model = Author`
 
 e.g. `import_id_fields = ['name']`
 
-インポート時にidとして扱うフィールドを定義します。ここで指定したフィールドをもとに、既存レコードの更新や新規登録が行われます。`AuthorResource`と`BookResource`はuniqueなフィールドでもあることから、`name`フィールドを指定していて、`BookResource`では`isbn`フィールドを指定しています。
+インポート時にidとして扱うフィールドを定義します。ここで指定したフィールドをもとに、既存レコードの更新や新規登録が行われます。`AuthorResource`と`PublisherResource`はuniqueなフィールドでもあることから、`name`フィールドを指定していて、`BookResource`では`isbn`フィールドを指定しています。
 
 
 #### fields
@@ -192,7 +192,7 @@ author = fields.Field(
 
 ### admin.py
 
-最後にadmin.pyです。
+続いてadmin.pyです。
 
 今回のサンプルコードのadmin.pyでは`django-import-export`の`ImportExportModelAdmin`を継承して基底クラスを用意し、各モデルは基底クラスを継承し、resource_classを指定しています。
 
@@ -235,7 +235,6 @@ class BookAdmin(ImportExportAdmin):
     list_display = ('title', 'isbn', 'author', 'publisher', 'published_date', 'price')
     list_filter = ('publisher', 'author')
     search_fields = ('title', 'isbn')
-    date_hierarchy = 'published_date'
 ```
 
 ## ダウンロードしたCSV
@@ -256,13 +255,6 @@ Pythonプロフェッショナルプログラミング 第4版,978-4-7980-7054-4
 
 ちなみに、変更点があった場合は次のようになります。
 
-## 削除する場合（これは別記事で良さそう）
-
-ちなみに、CSVに無いレコードを削除する場合は、以下の方法があります。
-
-1. `for_delete`メソッドをオーバーライドして、削除するかどうかを判定する
-2. `import_id_fields`で指定したフィールドをもとに、CSVに無いレコードを削除する
-
 ## 参考リンク
 
 ### 公式ドキュメント
@@ -274,7 +266,6 @@ Pythonプロフェッショナルプログラミング 第4版,978-4-7980-7054-4
 ### Resource クラス
 
 * [ModelResource](https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.ModelResource)
-* [for_delete](https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.Resource.for_delete) - インポート時に行を削除するかどうかを判定するメソッド
 
 ### Meta オプション (ResourceOptions)
 

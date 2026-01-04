@@ -36,4 +36,3 @@ class BookAdmin(ImportExportAdmin):
     list_display = ('title', 'isbn', 'author', 'publisher', 'published_date', 'price')
     list_filter = ('publisher', 'author')
     search_fields = ('title', 'isbn')
-    date_hierarchy = 'published_date'
