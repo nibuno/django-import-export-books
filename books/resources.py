@@ -25,18 +25,18 @@ class AuthorWidget(ForeignKeyWidget):
         """インポート時: 「姓 名」からAuthorインスタンスを取得"""
         if not value:
             return None
-        parts = value.split(' ', 1)
+        parts = value.split(" ", 1)
         if len(parts) == 2:
             last_name, first_name = parts
         else:
-            last_name, first_name = parts[0], ''
+            last_name, first_name = parts[0], ""
         return Author.objects.get(last_name=last_name, first_name=first_name)
 
     def render(self, value, obj=None):
         """エクスポート時: Authorインスタンスを「姓 名」形式で出力"""
         if value:
             return str(value)
-        return ''
+        return ""
 
 
 class AuthorResource(resources.ModelResource):
@@ -51,10 +51,10 @@ class AuthorResource(resources.ModelResource):
         model = Author
 
         # インポート時にレコードを識別するフィールド（複合キー）
-        import_id_fields = ['last_name', 'first_name']
+        import_id_fields = ["last_name", "first_name"]
 
         # インポート/エクスポート対象のフィールド
-        fields = ('last_name', 'first_name')
+        fields = ("last_name", "first_name")
 
         skip_unchanged = True
         report_skipped = False
@@ -69,8 +69,8 @@ class PublisherResource(resources.ModelResource):
 
     class Meta:
         model = Publisher
-        import_id_fields = ['name']
-        fields = ('name',)
+        import_id_fields = ["name"]
+        fields = ("name",)
         skip_unchanged = True
         report_skipped = False
 
@@ -86,27 +86,27 @@ class BookResource(resources.ModelResource):
     # ForeignKeyフィールドの定義
     # AuthorWidgetで「姓 名」形式での入出力に対応
     author = fields.Field(
-        column_name='author',
-        attribute='author',
+        column_name="author",
+        attribute="author",
         widget=AuthorWidget(),
     )
     publisher = fields.Field(
-        column_name='publisher',
-        attribute='publisher',
-        widget=ForeignKeyWidget(Publisher, field='name'),
+        column_name="publisher",
+        attribute="publisher",
+        widget=ForeignKeyWidget(Publisher, field="name"),
     )
 
     class Meta:
         model = Book
 
         # ISBNで書籍を識別（一意なのでIDの代わりに使える）
-        import_id_fields = ['isbn']
+        import_id_fields = ["isbn"]
 
         # 除外フィールド（これ以外は自動的にインポート/エクスポート対象になる）
-        exclude = ('id',)
+        exclude = ("id",)
 
         # エクスポート時のカラム順序
-        export_order = ('title', 'isbn', 'author', 'publisher', 'published_date', 'price', 'url')
+        export_order = ("title", "isbn", "author", "publisher", "published_date", "price", "url")
 
         skip_unchanged = True
         report_skipped = False
