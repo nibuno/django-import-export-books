@@ -13,6 +13,32 @@ from import_export.widgets import ForeignKeyWidget
 from .models import Author, Book, Publisher
 
 
+class AuthorWidget(ForeignKeyWidget):
+    """
+    著者を「姓 名」形式でインポート/エクスポートするカスタムウィジェット
+    """
+
+    def __init__(self):
+        super().__init__(Author)
+
+    def clean(self, value, row=None, **kwargs):
+        """インポート時: 「姓 名」からAuthorインスタンスを取得"""
+        if not value:
+            return None
+        parts = value.split(' ', 1)
+        if len(parts) == 2:
+            last_name, first_name = parts
+        else:
+            last_name, first_name = parts[0], ''
+        return Author.objects.get(last_name=last_name, first_name=first_name)
+
+    def render(self, value, obj=None):
+        """エクスポート時: Authorインスタンスを「姓 名」形式で出力"""
+        if value:
+            return str(value)
+        return ''
+
+
 class AuthorResource(resources.ModelResource):
     """
     Authorモデル用のリソースクラス
@@ -22,23 +48,15 @@ class AuthorResource(resources.ModelResource):
     """
 
     class Meta:
-        # 対象となるDjangoモデル
         model = Author
 
-        # インポート時にレコードを識別するフィールド
-        # 通常はpk(id)が使われるが、ここでは'name'で識別する
-        # これにより、別環境でもIDに依存せずデータを同期できる
-        import_id_fields = ['name']
+        # インポート時にレコードを識別するフィールド（複合キー）
+        import_id_fields = ['last_name', 'first_name']
 
         # インポート/エクスポート対象のフィールド
-        fields = ('name',)
+        fields = ('last_name', 'first_name')
 
-        # インポート時、データに変更がなければスキップする
-        # パフォーマンス向上と不要な更新を防ぐ
         skip_unchanged = True
-
-        # スキップしたレコードをレポートに含めない
-        # Trueにするとスキップ理由が表示されるが、件数が多いと見づらくなる
         report_skipped = False
 
 
@@ -66,21 +84,11 @@ class BookResource(resources.ModelResource):
     """
 
     # ForeignKeyフィールドの定義
-    # エクスポート時はForeignKeyWidgetがなくても__str__の値が出力される
-    # 指定した場合は、widgetの挙動に従う（ここでは'name'フィールドの値をエクスポート・インポートで使う）
-
-    # ForeignKeyWidgetはインポート時に名前から関連モデルを検索して紐付けるために必要
-    # 仮に指定していない場合、以下のようなエラーが出る
-    # Cannot assign "'株式会社ビープラウド'": "Book.author" must be a "Author" instance.
+    # AuthorWidgetで「姓 名」形式での入出力に対応
     author = fields.Field(
-        # CSV/JSONでのカラム名
         column_name='author',
-        # Bookモデルのフィールド名
         attribute='author',
-        # Authorモデルの'name'フィールドで紐付け
-        # エクスポート: author.nameの値を出力
-        # インポート: name=<値>でAuthorを検索して紐付け
-        widget=ForeignKeyWidget(Author, field='name'),
+        widget=AuthorWidget(),
     )
     publisher = fields.Field(
         column_name='publisher',

@@ -1,19 +1,37 @@
 from django.db import models
 
 
+class AuthorManager(models.Manager):
+    def get_by_natural_key(self, last_name, first_name):
+        return self.get(last_name=last_name, first_name=first_name)
+
+
 class Author(models.Model):
-    name = models.CharField('著者名', max_length=255, unique=True)
+    last_name = models.CharField('姓', max_length=100)
+    first_name = models.CharField('名', max_length=100)
+
+    objects = AuthorManager()
 
     class Meta:
         verbose_name = '著者'
         verbose_name_plural = '著者'
 
     def __str__(self):
-        return self.name
+        return f'{self.last_name} {self.first_name}'
+
+    def natural_key(self):
+        return self.last_name, self.first_name
+
+
+class PublisherManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
 
 
 class Publisher(models.Model):
     name = models.CharField('出版社名', max_length=255, unique=True)
+
+    objects = PublisherManager()
 
     class Meta:
         verbose_name = '出版社'
@@ -21,6 +39,14 @@ class Publisher(models.Model):
 
     def __str__(self):
         return self.name
+
+    def natural_key(self):
+        return self.name,
+
+
+class BookManager(models.Manager):
+    def get_by_natural_key(self, isbn):
+        return self.get(isbn=isbn)
 
 
 class Book(models.Model):
@@ -40,9 +66,16 @@ class Book(models.Model):
     price = models.PositiveIntegerField('価格')
     url = models.URLField('URL', blank=True)
 
+    objects = BookManager()
+
     class Meta:
         verbose_name = '書籍'
         verbose_name_plural = '書籍'
 
     def __str__(self):
         return self.title
+
+    def natural_key(self):
+        return self.isbn,
+
+    natural_key.dependencies = ['books.Author', 'books.Publisher']

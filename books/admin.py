@@ -19,8 +19,8 @@ class ImportExportAdmin(ImportExportModelAdmin):
 @admin.register(Author)
 class AuthorAdmin(ImportExportAdmin):
     resource_class = AuthorResource
-    list_display = ('name',)
-    search_fields = ('name',)
+    list_display = ('last_name', 'first_name')
+    search_fields = ('last_name', 'first_name')
 
 
 @admin.register(Publisher)
