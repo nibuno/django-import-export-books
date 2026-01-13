@@ -1,0 +1,78 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+  "title": "Getting started — django-import-export 4.3.15.dev28 documentation",
+  "content": "This section describes how to get started with import-export. We’ll use the example application as a guide.\n\nimport-export can be used programmatically as described here, or it can be integrated with the Django Admin interface.\n\nThere are sample files which can be used to test importing data in the tests/core/exports directory.\n\nFor example purposes, we’ll use a simplified book app. Here is our models.py:\n\nTo integrate import-export with our Book model, we will create a ModelResource class in admin.py that will describe how this resource can be imported or exported:\n\nLet’s import some data!\n\nIn the fourth line we use modelresource_factory() to create a default ModelResource. The ModelResource class created this way is equal to the one shown in the example in section Creating a resource. For more advanced usage of this function, see Using modelresource_factory.\n\nIn fifth line a Dataset with columns id and name, and one book entry, are created. A field (or combination of fields) which uniquely identifies an instance always needs to be present. This is so that the import process can manage creates / updates. In this case, we use id. For more information, see Create or update model instances.\n\nIn the rest of the code we first pretend to import data using import_data() and dry_run set, then check for any errors and actually import data this time.\n\nfor a detailed description of the import workflow and its customization options.\n\nTo delete objects during import, implement the for_delete() method on your Resource class. You should add custom logic which will signify which rows are to be deleted.\n\nFor example, suppose you would like to have a field in the import dataset to indicate which rows should be deleted. You could include a field called delete which has either a 1 or 0 value.\n\nIn this case, declare the resource as follows:\n\nIf the delete flag is set on a ‘new’ instance (i.e. the row does not already exist in the db) then the row will be skipped.\n\nNow that we have defined a ModelResource class, we can export books:\n\nData exported programmatically is not sanitized for malicious content. You will need to understand the implications of this and handle accordingly. See Security.",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Getting started",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Introduction",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Test data",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "The test models",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Creating a resource",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Importing data",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Deleting data",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Exporting data",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/getting_started.rst.txt"
+  ]
+}

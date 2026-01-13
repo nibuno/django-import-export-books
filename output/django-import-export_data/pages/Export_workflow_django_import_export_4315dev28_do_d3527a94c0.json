@@ -1,0 +1,44 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+  "title": "Export workflow — django-import-export 4.3.15.dev28 documentation",
+  "content": "This document describes the export data workflow in detail, with hooks that enable customization of the export process.\n\nMethods highlighted in yellow in the sequence diagram indicate public methods which can be overridden.\n\nThe export() method retrieves a QuerySet from the database and formats into a tablib.Dataset.\n\nVarious hook methods are defined to allow you to customize the export data.\n\nThis is what happens when the method is invoked:\n\nThe export() method is passed an optional queryset parameter. The kwargs dict can hold additional information used to create the export, for example if called from the Admin UI.\n\nThe before_export() hook is called.\n\nIf no QuerySet has been passed, then get_queryset() method is called.\n\nThe filter_export() hook is called. You can override this method to modify the queryset for export.\n\nFor each instance in the QuerySet, export_resource() is called (with the instance passed as a parameter).\n\nFor each field defined in fields:\n\nexport_field() is called with the field and instance as parameters.\n\nIf a dehydrate method is defined on the Resource, then this method is called to extract the field value, Otherwise export() is called for each defined field, with the instance passed as a parameter.\n\nget_value() is called with the instance to retrieve the export value from the instance.export\n\nThe field’s widget render() method is called to retrieve the export value.\n\nEach value is appended to a tablib.Dataset.\n\nThe tablib.Dataset is returned from export().",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Export workflow",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/export_workflow.rst.txt",
+    "https://django-import-export.readthedocs.io/en/latest/_images/export_workflow.svg"
+  ]
+}

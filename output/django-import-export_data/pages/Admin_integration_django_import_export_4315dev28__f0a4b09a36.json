@@ -1,0 +1,182 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+  "title": "Admin integration — django-import-export 4.3.15.dev28 documentation",
+  "content": "One of the main features of import-export is the support for integration with the Django Admin site. This provides a convenient interface for importing and exporting Django objects. Refer to the Django Admin documentation for details of how to enable and configure the admin site.\n\nYou can also install and run the example application to become familiar with Admin integration.\n\nIntegrating import-export with your application requires extra configuration.\n\nAdmin integration is achieved by subclassing ImportExportModelAdmin or one of the available mixins (ImportMixin, ExportMixin, ImportExportMixin):\n\nOnce this configuration is present (and server is restarted), ‘import’ and ‘export’ buttons will be presented to the user. Clicking each button will open a workflow where the user can select the type of import or export.\n\nYou can assign multiple resources to the resource_classes attribute. These resources will be presented in a select dropdown in the UI.\n\nA screenshot of the change view with Import and Export buttons.\n\nTo enable import, subclass ImportExportModelAdmin or use one of the available mixins, i.e. ImportMixin, or ImportExportMixin.\n\nEnabling import functionality means that a UI button will automatically be presented on the Admin page:\n\nWhen clicked, the user will be directed into the import workflow. By default, import is a two step process, though it can be configured to be a single step process (see IMPORT_EXPORT_SKIP_ADMIN_CONFIRM).\n\nThe two step process is:\n\nSelect the file and format for import.\n\nPreview the import data and confirm import.\n\nA screenshot of the ‘import’ view.\n\nA screenshot of the ‘confirm import’ view.\n\nTo support import confirmation, uploaded data is written to temporary storage after step 1 (choose file), and read back for final import after step 2 (import confirmation).\n\nThere are three mechanisms for temporary storage.\n\nTemporary file storage on the host server (default). This is suitable for development only. Use of temporary filesystem storage is not recommended for production sites.\n\nTo modify which storage mechanism is used, please refer to the setting IMPORT_EXPORT_TMP_STORAGE_CLASS.\n\nYour choice of temporary storage will be influenced by the following factors:\n\nSensitivity of the data being imported.\n\nVolume and frequency of uploads.\n\nUse of containers or load-balanced servers.\n\nTemporary resources are removed when data is successfully imported after the confirmation step.\n\nFor sensitive data you will need to understand exactly how temporary files are being stored and to ensure that data is properly secured and managed.\n\nIf users do not complete the confirmation step of the workflow, or if there are errors during import, then temporary resources may not be deleted. This will need to be understood and managed in production settings. For example, using a cache expiration policy or cron job to clear stale resources.\n\nIf using MediaStorage as a storage module, then you can define which storage backend implementation is used to handle create / read / delete operations on the persisted data.\n\nIf using Django 4.2 or greater, use the STORAGES setting to define the backend, otherwise use IMPORT_EXPORT_DEFAULT_FILE_STORAGE.\n\nYou can either supply a path to your own custom storage backend, or use pre-existing backends such as django-storages.\n\nIf no custom storage implementation is supplied, then the Django default handler is used.\n\nFor example, if using django-storages, you can configure s3 as a temporary storage location with the following:\n\nAdmin UI import error messages can be formatted using the import_error_display attribute.\n\nAs with import, it is also possible to configure export functionality.\n\nTo do this, subclass ImportExportModelAdmin or use one of the available mixins, i.e. ExportMixin, or ImportExportMixin.\n\nEnabling export functionality means that a UI button will automatically be presented on the Admin page:\n\nWhen clicked, the user will be directed into the export workflow.\n\nExport is a two step process. When the ‘export’ button is clicked, the user will be directed to a new screen, where ‘resource’, ‘fields’ and ‘file format’ can be selected.\n\nThe export ‘confirm’ page.\n\nOnce ‘submit’ is clicked, the export file will be automatically downloaded to the client (usually to the ‘Downloads’ folder).\n\nIt is possible to disable this extra step by setting the IMPORT_EXPORT_SKIP_ADMIN_EXPORT_UI flag, or by setting skip_export_form.\n\nIt’s possible to configure the Admin UI so that users can select which items they want to export:\n\nTo do this, simply declare an Admin instance which includes ExportActionMixin:\n\nThen register this Admin:\n\nNote that the above example refers specifically to the example application, you’ll have to modify this to refer to your own model instances. In the example application, the ‘Category’ model has this functionality.\n\nWhen ‘Go’ is clicked for the selected items, the user will be directed to the export ‘confirm’ page.\n\nIt is possible to disable this extra step by setting the IMPORT_EXPORT_SKIP_ADMIN_ACTION_EXPORT_UI or IMPORT_EXPORT_SKIP_ADMIN_EXPORT_UI flags, or by setting skip_export_form_from_action or skip_export_form.\n\nIf deploying to a multi-tenant environment, you may need to ensure that one set of users cannot export data belonging to another set. To do this, filter the range of exportable items to be limited to only those items which users should be permitted to export. See get_export_queryset().\n\nIf exporting large datasets via the action menu, you may see Django’s SuspiciousOperation exception for ‘TooManyFieldsSent’. This is a built-in Django protection against Denial of Service attacks.\n\nIf you need to be able to export larger datasets via the action menu you can use the DATA_UPLOAD_MAX_NUMBER_FIELDS setting to increase or disable this check.\n\nWhen export via admin action is enabled, then it is also possible to export from a model instance change form:\n\nExport from model instance change form\n\nWhen ‘Export’ is clicked, the user will be directed to the export ‘confirm’ page.\n\nThis button can be removed from the UI by setting the show_change_form_export attribute, for example:\n\nIt is possible to modify default import forms used in the model admin. For example, to add an additional field in the import form, subclass and extend the ImportForm (note that you may want to also consider ConfirmImportForm as importing is a two-step process).\n\nTo use your customized form(s), change the respective attributes on your ModelAdmin class:\n\nFor example, imagine you want to import books and set each book to have the same Author, selected from a dropdown. You can extend the import forms to include author field to select the author from.\n\nImporting an E-Book using the example application demonstrates this.\n\nA screenshot of a customized import view.\n\nCustomize forms (for example see tests/core/forms.py):\n\nCustomize ModelAdmin (for example see tests/core/admin.py):\n\nIn order to save the selected author along with the EBook, another couple of methods are required. Add the following to CustomBookAdmin class (in tests/core/admin.py):\n\nThen add the following to EBookResource class (in tests/core/admin.py):\n\nThe selected author is now set as an attribute on the instance object. When the instance is saved, then the author is set as a foreign key relation to the instance.\n\nTo further customize the import forms, you might like to consider overriding the following ImportMixin methods:\n\nget_import_form_class()\n\nget_import_form_kwargs()\n\nget_import_form_initial()\n\nget_confirm_form_class()\n\nget_confirm_form_kwargs()\n\nThe parameters can then be read from Resource methods, such as:\n\navailable mixins and options.\n\nIt is also possible to add fields to the export form so that export data can be filtered. For example, we can filter exports by Author.\n\nA screenshot of a customized export view.\n\nCustomize forms (for example see tests/core/forms.py):\n\nCustomize ModelAdmin (for example see tests/core/admin.py):\n\nCreate a Resource subclass to apply the filter (for example see tests/core/admin.py):\n\nIn this example, we can filter an EBook export using the author’s name.\n\nCreate a custom form which defines ‘author’ as a required field.\n\nCreate a ‘CustomBookAdmin’ class which defines a Resource, and overrides get_export_resource_kwargs(). This ensures that the author id will be passed to the Resource constructor.\n\nCreate a Resource which is instantiated with the author_id, and can filter the queryset as required.\n\nIt is possible to set multiple resources both to import and export ModelAdmin classes. The ImportMixin, ExportMixin, ImportExportMixin and ImportExportModelAdmin classes accepts subscriptable type (list, tuple, …) as resource_classes parameter.\n\nThe subscriptable could also be returned from one of the following:\n\nget_resource_classes()\n\nget_import_resource_classes()\n\nget_export_resource_classes()\n\nIf there are multiple resources, the resource chooser appears in import/export admin form. The displayed name of the resource can be changed through the name parameter of the Meta class.\n\nUse multiple resources:\n\nThere are a few use cases where it is desirable to dynamically set values in the Resource. For example, suppose you are importing via the Admin console and want to use a value associated with the authenticated user in import queries.\n\nSuppose the authenticated user (stored in the request object) has a property called publisher_id. During import, we want to filter any books associated only with that publisher.\n\nFirst of all, override the get_import_resource_kwargs() method so that the request user is retained:\n\nNow you can add a constructor to your Resource to store the user reference, then override get_queryset() to return books for the publisher:\n\nimport-export extends the Django Admin interface. There is a possibility that clashes may occur with other 3rd party libraries which also use the admin interface.\n\nIssues have been raised due to conflicts with setting change_list_template. There is a workaround listed here. Also, refer to this issue. If you want to patch your own installation to fix this, a patch is available here.\n\nIf you use import-export using with django-debug-toolbar. then you need to configure debug_toolbar=False or DEBUG=False, It has been reported that the the import/export time will increase ~10 times.\n\nEnabling the Admin interface means that you should consider the security implications. Some or all of the following points may be relevant.\n\nWhat is the source of your import file?\n\nIs this coming from an external source where the data could be untrusted?\n\nCould source data potentially contain malicious content such as script directives or Excel formulae?\n\nEven if data comes from a trusted source, is there any content such as HTML which could cause issues when rendered in a web page?\n\nIf there is malicious content in stored data, what is the risk of exporting this data?\n\nCould untrusted input be executed within a spreadsheet?\n\nAre spreadsheets sent to other parties who could inadvertently execute malicious content?\n\nCould data be exported to other formats, such as CSV, TSV or ODS, and then opened using Excel?\n\nCould any exported data be rendered in HTML? For example, csv is exported and then loaded into another web application. In this case, untrusted input could contain malicious code such as active script content.\n\nYou should in all cases review Django security documentation before deploying a live Admin interface instance.\n\nPlease read the following topics carefully to understand how you can improve the security of your implementation.\n\nBy default, import-export does not sanitize or process imported data. Malicious content, such as script directives, can be imported into the database, and can be exported without any modification.\n\nHTML content, if exported into ‘html’ format, will be sanitized to remove scriptable content. This sanitization is performed by the tablib library.\n\nYou can optionally configure import-export to sanitize Excel formula data on export. See IMPORT_EXPORT_ESCAPE_FORMULAE_ON_EXPORT.\n\nEnabling this setting only sanitizes data exported using the Admin Interface. If exporting data programmatically, then you will need to apply your own sanitization.\n\nLimiting the available import or export format types can be considered. For example, if you never need to support import or export of spreadsheet data, you can remove this format from the application.\n\nImports and exports can be restricted using the following settings:\n\nIMPORT_EXPORT_FORMATS\n\nConsider setting permissions to define which users can import and export.\n\nIMPORT_EXPORT_IMPORT_PERMISSION_CODE\n\nIMPORT_EXPORT_EXPORT_PERMISSION_CODE\n\nRefer to SECURITY.md for details on how to escalate security issues you may have found in import-export.",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Admin integration",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Importing",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Import confirmation",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Customizable storage",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to format UI error messages",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Exporting",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Exporting via Admin action",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Exporting large datasets",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Export from model instance change form",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Customize admin import forms",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Further customization",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Customize admin export forms",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Using multiple resources",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "How to dynamically set resource values",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Interoperability with 3rd party libraries",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "django-admin-sortable2",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "django-polymorphic",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "template skipped due to recursion issue",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "django-debug-toolbar",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Security",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Is there potential for untrusted imports?",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "What is the potential risk for exported data?",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Mitigating security risks",
+      "id": ""
+    },
+    {
+      "level": "h4",
+      "text": "Sanitize exports",
+      "id": ""
+    },
+    {
+      "level": "h4",
+      "text": "Limit formats",
+      "id": ""
+    },
+    {
+      "level": "h4",
+      "text": "Set permissions",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Raising security issues",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [
+    {
+      "description": "Admin integration One of the main features of import-export is the support for integration with the Django Admin site. This provides a convenient interface for importing and exporting Django objects. Refer to the Django Admin documentation for details of how to enable and configure the admin site. You can also install and run the example application to become familiar with Admin integration. Integrating import-export with your application requires extra configuration. Admin integration is achieved by subclassing ImportExportModelAdmin or one of the available mixins (ImportMixin, ExportMixin, ImportExportMixin): # app/admin.py from django.contrib import admin from .models import Book from import_export.admin import ImportExportModelAdmin @admin.register(Book) class BookAdmin(ImportExportModelAdmin): resource_classes = [BookResource] Once this configuration is present (and server is restarted), ‘import’ and ‘export’ buttons will be presented to the user. Clicking each button will open a workflow where the user can select the type of import or export. You can assign multiple resources to the resource_classes attribute. These resources will be presented in a select dropdown in the UI. A screenshot of the change view with Import and Export buttons. Importing To enable import, subclass ImportExportModelAdmin or use one of the available mixins, i.e. ImportMixin, or ImportExportMixin. Enabling import functionality means that a UI button will automatically be presented on the Admin page: When clicked, the user will be directed into the import workflow. By default, import is a two step process, though it can be configured to be a single step process (see IMPORT_EXPORT_SKIP_ADMIN_CONFIRM). The two step process is: Select the file and format for import. Preview the import data and confirm import. A screenshot of the ‘import’ view. A screenshot of the ‘confirm import’ view. Import confirmation To support import confirmation, uploaded data is written to temporary storage after step 1 (choose file), and read back for final import after step 2 (import confirmation). There are three mechanisms for temporary storage. Temporary file storage on the host server (default). This is suitable for development only. Use of temporary filesystem storage is not recommended for production sites. The Django cache. Django storage. To modify which storage mechanism is used, please refer to the setting IMPORT_EXPORT_TMP_STORAGE_CLASS. Your choice of temporary storage will be influenced by the following factors: Sensitivity of the data being imported. Volume and frequency of uploads. File upload size. Use of containers or load-balanced servers. Temporary resources are removed when data is successfully imported after the confirmation step. For sensitive data you will need to understand exactly how temporary files are being stored and to ensure that data is properly secured and managed. Warning If users do not complete the confirmation step of the workflow, or if there are errors during import, then temporary resources may not be deleted. This will need to be understood and managed in production settings. For example, using a cache expiration policy or cron job to clear stale resources. Customizable storage If using MediaStorage as a storage module, then you can define which storage backend implementation is used to handle create / read / delete operations on the persisted data. If using Django 4.2 or greater, use the STORAGES setting to define the backend, otherwise use IMPORT_EXPORT_DEFAULT_FILE_STORAGE. You can either supply a path to your own custom storage backend, or use pre-existing backends such as django-storages. If no custom storage implementation is supplied, then the Django default handler is used. For example, if using django-storages, you can configure s3 as a temporary storage location with the following: IMPORT_EXPORT_TMP_STORAGE_CLASS = \"import_export.tmp_storages.MediaStorage\" STORAGES = { \"default\": { \"BACKEND\": \"django.core.files.storage.FileSystemStorage\", }, \"import_export\": { \"BACKEND\": \"storages.backends.s3.S3Storage\", \"OPTIONS\": { \"bucket_name\": \"<your bucket name>\", \"region_name\": \"<your region>\", \"access_key\": \"<your key>\", \"secret_key\": \"<your secret>\" }, }, } How to format UI error messages Admin UI import error messages can be formatted using the import_error_display attribute. Exporting As with import, it is also possible to configure export functionality. To do this, subclass ImportExportModelAdmin or use one of the available mixins, i.e. ExportMixin, or ImportExportMixin. Enabling export functionality means that a UI button will automatically be presented on the Admin page: When clicked, the user will be directed into the export workflow. Export is a two step process. When the ‘export’ button is clicked, the user will be directed to a new screen, where ‘resource’, ‘fields’ and ‘file format’ can be selected. The export ‘confirm’ page. Once ‘submit’ is clicked, the export file will be automatically downloaded to the client (usually to the ‘Downloads’ folder). It is possible to disable this extra step by setting the IMPORT_EXPORT_SKIP_ADMIN_EXPORT_UI flag, or by setting skip_export_form. Exporting via Admin action It’s possible to configure the Admin UI so that users can select which items they want to export: To do this, simply declare an Admin instance which includes ExportActionMixin: class BookAdmin(ImportExportModelAdmin, ExportActionMixin): # additional config can be supplied if required pass Then register this Admin: admin.site.register(Book, BookAdmin) Note that the above example refers specifically to the example application, you’ll have to modify this to refer to your own model instances. In the example application, the ‘Category’ model has this functionality. When ‘Go’ is clicked for the selected items, the user will be directed to the export ‘confirm’ page. It is possible to disable this extra step by setting the IMPORT_EXPORT_SKIP_ADMIN_ACTION_EXPORT_UI or IMPORT_EXPORT_SKIP_ADMIN_EXPORT_UI flags, or by setting skip_export_form_from_action or skip_export_form. Note If deploying to a multi-tenant environment, you may need to ensure that one set of users cannot export data belonging to another set. To do this, filter the range of exportable items to be limited to only those items which users should be permitted to export. See get_export_queryset(). Exporting large datasets If exporting large datasets via the action menu, you may see Django’s SuspiciousOperation exception for ‘TooManyFieldsSent’. This is a built-in Django protection against Denial of Service attacks. If you need to be able to export larger datasets via the action menu you can use the DATA_UPLOAD_MAX_NUMBER_FIELDS setting to increase or disable this check. Export from model instance change form When export via admin action is enabled, then it is also possible to export from a model instance change form: Export from model instance change form When ‘Export’ is clicked, the user will be directed to the export ‘confirm’ page. This button can be removed from the UI by setting the show_change_form_export attribute, for example: class CategoryAdmin(ExportActionModelAdmin): show_change_form_export = False Customize admin import forms It is possible to modify default import forms used in the model admin. For example, to add an additional field in the import form, subclass and extend the ImportForm (note that you may want to also consider ConfirmImportForm as importing is a two-step process). To use your customized form(s), change the respective attributes on your ModelAdmin class: import_form_class confirm_form_class For example, imagine you want to import books and set each book to have the same Author, selected from a dropdown. You can extend the import forms to include author field to select the author from. Note Importing an E-Book using the example application demonstrates this. A screenshot of a customized import view. Customize forms (for example see tests/core/forms.py): class CustomImportForm(ImportForm): author = forms.ModelChoiceField( queryset=Author.objects.all(), required=True) class CustomConfirmImportForm(ConfirmImportForm): author = forms.ModelChoiceField( queryset=Author.objects.all(), required=True) Customize ModelAdmin (for example see tests/core/admin.py): class CustomBookAdmin(ImportMixin, admin.ModelAdmin): resource_classes = [EBookResource] import_form_class = CustomImportForm confirm_form_class = CustomConfirmImportForm def get_confirm_form_initial(self, request, import_form): initial = super().get_confirm_form_initial(request, import_form) # Pass on the `author` value from the import form to # the confirm form (if provided) if import_form: initial['author'] = import_form.cleaned_data['author'].id return initial admin.site.register(EBook, CustomBookAdmin) In order to save the selected author along with the EBook, another couple of methods are required. Add the following to CustomBookAdmin class (in tests/core/admin.py): def get_import_data_kwargs(self, request, *args, **kwargs): \"\"\" Prepare kwargs for import_data. \"\"\" form = kwargs.get(\"form\", None) if form and hasattr(form, \"cleaned_data\"): kwargs.update({\"author\": form.cleaned_data.get(\"author\", None)}) return kwargs Then add the following to EBookResource class (in tests/core/admin.py): def after_init_instance(self, instance, new, row, **kwargs): if \"author\" in kwargs: instance.author = kwargs[\"author\"] The selected author is now set as an attribute on the instance object. When the instance is saved, then the author is set as a foreign key relation to the instance. Further customization To further customize the import forms, you might like to consider overriding the following ImportMixin methods: get_import_form_class() get_import_form_kwargs() get_import_form_initial() get_confirm_form_class() get_confirm_form_kwargs() The parameters can then be read from Resource methods, such as: before_import() before_import_row() See also Adminavailable mixins and options. Customize admin export forms It is also possible to add fields to the export form so that export data can be filtered. For example, we can filter exports by Author. A screenshot of a customized export view. Customize forms (for example see tests/core/forms.py): class CustomExportForm(AuthorFormMixin, ExportForm): \"\"\"Customized ExportForm, with author field required.\"\"\" author = forms.ModelChoiceField( queryset=Author.objects.all(), required=True) Customize ModelAdmin (for example see tests/core/admin.py): class CustomBookAdmin(ImportMixin, ImportExportModelAdmin): resource_classes = [EBookResource] export_form_class = CustomExportForm def get_export_resource_kwargs(self, request, **kwargs): export_form = kwargs.get(\"export_form\") if export_form: kwargs.update(author_id=export_form.cleaned_data[\"author\"].id) return kwargs admin.site.register(Book, CustomBookAdmin) Create a Resource subclass to apply the filter (for example see tests/core/admin.py): class EBookResource(ModelResource): def __init__(self, **kwargs): super().__init__() self.author_id = kwargs.get(\"author_id\") def filter_export(self, queryset, **kwargs): return queryset.filter(author_id=self.author_id) class Meta: model = EBook In this example, we can filter an EBook export using the author’s name. Create a custom form which defines ‘author’ as a required field. Create a ‘CustomBookAdmin’ class which defines a Resource, and overrides get_export_resource_kwargs(). This ensures that the author id will be passed to the Resource constructor. Create a Resource which is instantiated with the author_id, and can filter the queryset as required. Using multiple resources It is possible to set multiple resources both to import and export ModelAdmin classes. The ImportMixin, ExportMixin, ImportExportMixin and ImportExportModelAdmin classes accepts subscriptable type (list, tuple, …) as resource_classes parameter. The subscriptable could also be returned from one of the following: get_resource_classes() get_import_resource_classes() get_export_resource_classes() If there are multiple resources, the resource chooser appears in import/export admin form. The displayed name of the resource can be changed through the name parameter of the Meta class. Use multiple resources: from import_export import resources from core.models import Book class BookResource(resources.ModelResource): class Meta: model = Book class BookNameResource(resources.ModelResource): class Meta: model = Book fields = ['id', 'name'] name = \"Export/Import only book names\" class CustomBookAdmin(ImportMixin, admin.ModelAdmin): resource_classes = [BookResource, BookNameResource] How to dynamically set resource values There are a few use cases where it is desirable to dynamically set values in the Resource. For example, suppose you are importing via the Admin console and want to use a value associated with the authenticated user in import queries. Suppose the authenticated user (stored in the request object) has a property called publisher_id. During import, we want to filter any books associated only with that publisher. First of all, override the get_import_resource_kwargs() method so that the request user is retained: class BookAdmin(ImportExportMixin, admin.ModelAdmin): # attribute declarations not shown def get_import_resource_kwargs(self, request, *args, **kwargs): kwargs = super().get_resource_kwargs(request, *args, **kwargs) kwargs.update({\"user\": request.user}) return kwargs Now you can add a constructor to your Resource to store the user reference, then override get_queryset() to return books for the publisher: class BookResource(ModelResource): def __init__(self, user): self.user = user def get_queryset(self): return self._meta.model.objects.filter(publisher_id=self.user.publisher_id) class Meta: model = Book Interoperability with 3rd party libraries import-export extends the Django Admin interface. There is a possibility that clashes may occur with other 3rd party libraries which also use the admin interface. django-admin-sortable2 Issues have been raised due to conflicts with setting change_list_template. There is a workaround listed here. Also, refer to this issue. If you want to patch your own installation to fix this, a patch is available here. django-polymorphic Refer to this issue. template skipped due to recursion issue Refer to this issue. django-debug-toolbar If you use import-export using with django-debug-toolbar. then you need to configure debug_toolbar=False or DEBUG=False, It has been reported that the the import/export time will increase ~10 times. Refer to this PR. Security Enabling the Admin interface means that you should consider the security implications. Some or all of the following points may be relevant. Is there potential for untrusted imports? What is the source of your import file? Is this coming from an external source where the data could be untrusted? Could source data potentially contain malicious content such as script directives or Excel formulae? Even if data comes from a trusted source, is there any content such as HTML which could cause issues when rendered in a web page? What is the potential risk for exported data? If there is malicious content in stored data, what is the risk of exporting this data? Could untrusted input be executed within a spreadsheet? Are spreadsheets sent to other parties who could inadvertently execute malicious content? Could data be exported to other formats, such as CSV, TSV or ODS, and then opened using Excel? Could any exported data be rendered in HTML? For example, csv is exported and then loaded into another web application. In this case, untrusted input could contain malicious code such as active script content. You should in all cases review Django security documentation before deploying a live Admin interface instance. Mitigating security risks Please read the following topics carefully to understand how you can improve the security of your implementation. Sanitize exports By default, import-export does not sanitize or process imported data. Malicious content, such as script directives, can be imported into the database, and can be exported without any modification. Note HTML content, if exported into ‘html’ format, will be sanitized to remove scriptable content. This sanitization is performed by the tablib library. You can optionally configure import-export to sanitize Excel formula data on export. See IMPORT_EXPORT_ESCAPE_FORMULAE_ON_EXPORT. Enabling this setting only sanitizes data exported using the Admin Interface. If exporting data programmatically, then you will need to apply your own sanitization. Limit formats Limiting the available import or export format types can be considered. For example, if you never need to support import or export of spreadsheet data, you can remove this format from the application. Imports and exports can be restricted using the following settings: IMPORT_EXPORT_FORMATS IMPORT_FORMATS EXPORT_FORMATS Set permissions Consider setting permissions to define which users can import and export. IMPORT_EXPORT_IMPORT_PERMISSION_CODE IMPORT_EXPORT_EXPORT_PERMISSION_CODE Raising security issues Refer to SECURITY.md for details on how to escalate security issues you may have found in import-export.",
+      "code": "ImportExportModelAdmin"
+    },
+    {
+      "description": "This button can be removed from the UI by setting the show_change_form_export attribute, for example:",
+      "code": "show_change_form_export"
+    }
+  ],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/admin_integration.rst.txt"
+  ]
+}

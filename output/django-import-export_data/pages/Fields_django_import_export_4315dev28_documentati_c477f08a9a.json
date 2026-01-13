@@ -1,0 +1,43 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+  "title": "Fields — django-import-export 4.3.15.dev28 documentation",
+  "content": "Field represents a mapping between an instance field and a representation of the field’s data.\n\nattribute – A string of either an instance attribute or callable of the instance.\n\ncolumn_name – An optional column name for the column that represents this field in the export.\n\nwidget – Defines a widget that will be used to represent this field’s data in the export, or transform the value during import.\n\nreadonly – A Boolean which defines if this field will be ignored during import.\n\ndefault – This value will be returned by clean() if this field’s widget returned a value defined in empty_values.\n\nsaves_null_values – Controls whether null values are saved on the instance. This can be used if the widget returns null, but there is a default instance value which should not be overwritten.\n\ndehydrate_method – You can provide a dehydrate_method as a string to use instead of the default dehydrate_{field_name} syntax, or you can provide a callable that will be executed with the instance as its argument.\n\nm2m_add – changes save of this field to add the values, if they do not exist, to a ManyToMany field instead of setting all values. Only useful if field is a ManyToMany field.\n\nTranslates the value stored in the imported datasource to an appropriate Python object and returns it.\n\nReturns value from the provided instance converted to export representation.\n\nReturns method name to be used for dehydration of the field. Defaults to dehydrate_{field_name}\n\nReturns the value of the instance’s attribute.\n\nIf this field is not declared readonly, the instance’s attribute will be set to the value returned by clean().",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Fields",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/api_fields.rst.txt"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+  "title": "Admin — django-import-export 4.3.15.dev28 documentation",
+  "content": "For instructions on how to use the models and mixins in this module, please refer to Admin integration.\n\nMixin with export functionality implemented as an admin action.\n\ntemplate for change form\n\nAction runs on POST from instance action menu (if enabled).\n\nAdds the export action to the list of available actions.\n\nFlag to indicate whether to show ‘export’ button on change form\n\nSubclass of ModelAdmin with export functionality implemented as an admin action.\n\nThis is intended to be mixed with ModelAdmin.\n\nHandles the default workflow for both the export form and the export of data to file.\n\nForm class to use for the initial export step. Assign to ExportForm if you would like to disable selectable fields feature.\n\nalias of SelectableFieldsExportForm\n\ntemplate for export view\n\nReturns file_format representation for given queryset.\n\nGet the form class used to read the export format.\n\nReturns export queryset. The queryset is obtained by calling ModelAdmin get_queryset().\n\nDefault implementation respects applied search and filters.\n\nReturns whether a request has export permission.\n\ntemplate for change_list view\n\nSubclass of ExportActionModelAdmin with import/export functionality. Export functionality is implemented as an admin action.\n\nImport and export mixin.\n\ntemplate for change_list view\n\nSubclass of ModelAdmin with import/export functionality.\n\nThis is intended to be mixed with django.contrib.admin.ModelAdmin https://docs.djangoproject.com/en/dev/ref/contrib/admin/\n\nform class to use for the confirm import step\n\nalias of ConfirmImportForm\n\nAdded in version 3.0.\n\nReturn a form instance to use for the ‘confirm’ import step. This method can be extended to make dynamic form updates to the form after it has been instantiated. You might also look to override the following:\n\nget_confirm_form_class()\n\nget_confirm_form_kwargs()\n\nget_confirm_form_initial()\n\nAdded in version 3.0.\n\nReturn a form instance to use for the ‘initial’ import step. This method can be extended to make dynamic form updates to the form after it has been instantiated. You might also look to override the following:\n\nget_import_form_class()\n\nget_import_form_kwargs()\n\nget_import_form_initial()\n\nget_import_resource_classes()\n\nAdded in version 3.0.\n\nReturn the form class to use for the ‘confirm’ import step. If you only have a single custom form class, you can set the confirm_form_class attribute to change this for your subclass.\n\nAdded in version 3.0.\n\nReturn a dictionary of initial field values to be provided to the ‘confirm’ form.\n\nAdded in version 3.0.\n\nReturn a dictionary of values with which to initialize the ‘confirm’ form (including the initial values returned by get_confirm_form_initial()).\n\nPrepare kwargs for import_data.\n\nAdded in version 3.0.\n\nReturn the form class to use for the ‘import’ step. If you only have a single custom form class, you can set the import_form_class attribute to change this for your subclass.\n\nAdded in version 3.0.\n\nReturn a dictionary of initial field values to be provided to the ‘import’ form.\n\nAdded in version 3.0.\n\nReturn a dictionary of values with which to initialize the ‘import’ form (including the initial values returned by get_import_form_initial()).\n\nOverride this method to provide additional kwargs to temp storage class.\n\nReturns whether a request has import permission.\n\nPerform a dry_run of the import to make sure the import will not result in errors. If there are no errors, save the user uploaded file to a local temp file that will be used by ‘process_import’ for the actual import.\n\ncontrol which UI elements appear when import errors are displayed. Available options: ‘message’, ‘row’, ‘traceback’\n\ntemplate for change_list view\n\nform class to use for the initial import step\n\ntemplate for import view\n\nPerform the actual import action (after the user has confirmed the import)",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Admin",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/api_admin.rst.txt"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+  "title": "Import workflow — django-import-export 4.3.15.dev28 documentation",
+  "content": "This document describes the import data workflow in detail, with hooks that enable customization of the import process.\n\nMethods highlighted in yellow in the sequence diagram indicate public methods which can be overridden.\n\nThe import_data() method of Resource is responsible for importing data from a given dataset. Refer to the method documentation for parameters to this method.\n\nThis is what happens when the method is invoked:\n\nFirst, a new Result instance, which holds errors and other information gathered during the import, is initialized.\n\nThen, an BaseInstanceLoader responsible for loading existing instances is initialized. A different BaseInstanceLoader can be specified via ResourceOptions’s instance_loader_class attribute. A CachedInstanceLoader can be used to reduce number of database queries. See the instance_loaders for available implementations.\n\nThe before_import() hook is called. By implementing this method in your resource, you can customize the import process.\n\nEach row of the to-be-imported dataset is processed according to the following steps:\n\nThe before_import_row() hook is called to allow for row data to be modified before it is imported.\n\nget_or_init_instance() is called with current BaseInstanceLoader and current row of the dataset, returning an object and a Boolean declaring if the object is newly created or not.\n\nIf no object can be found for the current row, init_instance() is invoked to initialize an object.\n\nAs always, you can override the implementation of init_instance() to customize how the new object is created (i.e. set default values).\n\nfor_delete() is called to determine if the passed instance should be deleted. In this case, the import process for the current row is stopped at this point.\n\nIf the instance was not deleted in the previous step, import_row() is called with the instance as current object instance, row as current row.\n\nimport_field() is called for each field in Resource skipping many- to-many fields. Many-to-many fields are skipped because they require instances to have a primary key and therefore assignment is postponed to when the object has already been saved.\n\nimport_field() in turn calls save(), if Field.attribute is set and Field.column_name exists in the given row.\n\nIt then is determined whether the newly imported object is different from the already present object and if therefore the given row should be skipped or not. This is handled by calling skip_row() with original as the original object and instance as the current object from the dataset.\n\nIf the current row is to be skipped, row_result.import_type is set to IMPORT_TYPE_SKIP.\n\nIf the current row is not to be skipped, save_instance() is called and actually saves the instance when dry_run is not set.\n\nThere are two hook methods (that by default do nothing) giving you the option to customize the import process:\n\nbefore_save_instance()\n\nafter_save_instance()\n\nsave_m2m() is called to save many to many fields.\n\nRowResult is assigned with a diff between the original and the imported object fields, as well as and import_type attribute which states whether the row is new, updated, skipped or deleted.\n\nIf an exception is raised during row processing and import_row() was invoked with raise_errors=False (which is the default) the particular traceback is appended to RowResult as well.\n\nIf either the row was not skipped or the Resource is configured to report skipped rows, the RowResult is appended to the Result\n\nThe after_import_row() hook is called\n\nThe Result is returned.\n\nIf transaction support is enabled, whole import process is wrapped inside transaction and rolled back or committed respectively. All methods called from inside of import_data() (create / delete / update) receive False for dry_run argument.",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Import workflow",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Transaction support",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/import_workflow.rst.txt",
+    "https://django-import-export.readthedocs.io/en/latest/_images/import_workflow.svg"
+  ]
+}

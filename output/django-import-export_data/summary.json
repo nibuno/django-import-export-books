@@ -1,0 +1,249 @@
+{
+  "name": "django-import-export",
+  "total_pages": 60,
+  "base_url": "https://django-import-export.readthedocs.io/en/latest/",
+  "llms_txt_detected": false,
+  "llms_txt_variant": null,
+  "pages": [
+    {
+      "title": "Django import / export — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/"
+    },
+    {
+      "title": "Installation and configuration — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/installation.html"
+    },
+    {
+      "title": "Getting started — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/getting_started.html"
+    },
+    {
+      "title": "Advanced usage — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html"
+    },
+    {
+      "title": "Admin integration — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/admin_integration.html"
+    },
+    {
+      "title": "Import workflow — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/import_workflow.html"
+    },
+    {
+      "title": "Export workflow — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/export_workflow.html"
+    },
+    {
+      "title": "Bulk imports — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/bulk_import.html"
+    },
+    {
+      "title": "Django Management Commands — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/management_commands.html"
+    },
+    {
+      "title": "Using celery — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/celery.html"
+    },
+    {
+      "title": "Testing — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/testing.html"
+    },
+    {
+      "title": "Frequently Asked Questions — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/faq.html"
+    },
+    {
+      "title": "Screenshots — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/screenshots.html"
+    },
+    {
+      "title": "Release Notes — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/release_notes.html"
+    },
+    {
+      "title": "Changelog — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/changelog.html"
+    },
+    {
+      "title": "Admin — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_admin.html"
+    },
+    {
+      "title": "Resources — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_resources.html"
+    },
+    {
+      "title": "Widgets — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_widgets.html"
+    },
+    {
+      "title": "Fields — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_fields.html"
+    },
+    {
+      "title": "Instance loaders — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html"
+    },
+    {
+      "title": "Mixins — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_mixins.html"
+    },
+    {
+      "title": "Temporary storages — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html"
+    },
+    {
+      "title": "Results — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_results.html"
+    },
+    {
+      "title": "Forms — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_forms.html"
+    },
+    {
+      "title": "Exceptions — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html"
+    },
+    {
+      "title": "Contributing — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/contributing.html"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/index.rst.txt"
+    },
+    {
+      "title": "Django import / export — django-import-export 4.3.15.dev28 documentation",
+      "url": "https://django-import-export.readthedocs.io/en/latest/index.html"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/installation.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/getting_started.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/advanced_usage.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/admin_integration.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/import_workflow.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_images/import_workflow.svg"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/export_workflow.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_images/export_workflow.svg"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/bulk_import.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/management_commands.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/celery.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/testing.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/faq.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/screenshots.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_images/import-form.png"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_images/confirm-import.png"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_images/import-complete.png"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_images/import-update-with-authors.png"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_images/export-form.png"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/release_notes.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/changelog.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_admin.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_resources.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_widgets.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_fields.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_instance_loaders.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_mixins.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_tmp_storages.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_results.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_forms.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/api_exceptions.rst.txt"
+    },
+    {
+      "title": "",
+      "url": "https://django-import-export.readthedocs.io/en/latest/_sources/contributing.rst.txt"
+    }
+  ]
+}

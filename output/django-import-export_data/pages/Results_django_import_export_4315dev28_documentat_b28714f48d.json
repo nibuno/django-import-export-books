@@ -1,0 +1,58 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+  "title": "Results — django-import-export 4.3.15.dev28 documentation",
+  "content": "The collection of rows which had generic errors.\n\nA custom Dataset containing only failed rows and associated errors.\n\nReturns a boolean indicating whether the import process resulted in any critical (non-validation) errors for this result.\n\nReturns a boolean indicating whether the import process resulted in any validation errors for this result.\n\nThe collection of rows which had validation errors.\n\nThe rows associated with the result.\n\nContainer for values relating to a row import.\n\nA HTML representation of the difference between the ‘original’ and ‘updated’ model instance.\n\nAn instance of Error which may have been raised during import.\n\nA string identifier which identifies what type of import was performed.\n\nA reference to the model instance which was created, updated or deleted.\n\nTrue if import type is ‘delete’, otherwise False.\n\nTrue if import type is ‘error’, otherwise False.\n\nTrue if import type is ‘invalid’, otherwise False.\n\nTrue if import type is ‘new’, otherwise False.\n\nTrue if import type is ‘skip’, otherwise False.\n\nTrue if import type is ‘update’, otherwise False.\n\nTrue if import type is not ‘error’ or ‘invalid’, otherwise False.\n\nThe instance id (used in Admin UI)\n\nThe object representation (used in Admin UI)\n\nA reference to the model instance before updates were applied. This value is only set for updates.\n\nRetain the raw values associated with each imported row.\n\nContains any ValidationErrors which may have been raised during import.\n\nA row that resulted in one or more ValidationError being raised during import.\n\nReturns the total number of validation errors for this row.\n\nReturns a dictionary of field-specific validation errors for this row.\n\nReturns a list of non field-specific validation errors for this row.",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Results",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Result",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "RowResult",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "InvalidRow",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/api_results.rst.txt"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+  "title": "Screenshots — django-import-export 4.3.15.dev28 documentation",
+  "content": "These are some screenshots for the Admin UI of the example application.\n\nShows the initial import form with fields for selecting the resource, file and format.\n\nShows the confirmation page which appears prior to committing the import to the database.\n\nShows the confirmation page on successful import.\n\nShows the preview page for updating existing records with author details.\n\nShows selecting records for export.\n\nShows the export form with fields for selecting the resource, fields and format.",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Screenshots",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/screenshots.rst.txt",
+    "https://django-import-export.readthedocs.io/en/latest/_images/import-form.png",
+    "https://django-import-export.readthedocs.io/en/latest/_images/confirm-import.png",
+    "https://django-import-export.readthedocs.io/en/latest/_images/import-complete.png",
+    "https://django-import-export.readthedocs.io/en/latest/_images/import-update-with-authors.png",
+    "https://django-import-export.readthedocs.io/en/latest/_images/export-selected-action.png",
+    "https://django-import-export.readthedocs.io/en/latest/_images/export-form.png"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+  "title": "Mixins — django-import-export 4.3.15.dev28 documentation",
+  "content": "Base mixin for functionality related to importing and exporting via the Admin interface.\n\nReturn subscriptable type (list, tuple, …) containing resource classes :param request: The request object. :returns: The Resource classes.\n\nReturn the index of the resource class defined in the form.\n\nform – The form object.\n\nThe index of the resource as an int.\n\nReturn the kwargs which are to be passed to the Resource constructor. Can be overridden to provide additional kwarg params.\n\nrequest – The request object.\n\nkwargs – Keyword arguments.\n\nThe Resource kwargs (by default, is the kwargs passed).\n\nIdentify which class should be used for import :param form: The form object. :param request: The request object. :returns: The import Resource class.\n\nReturns available import formats.\n\nrequest – The request object.\n\nReturns ResourceClass subscriptable (list, tuple, …) to use for import.\n\nReturns kwargs which will be passed to the Resource constructor. :param request: The request object. :param kwargs: Keyword arguments. :returns: The kwargs (dict)\n\nIf enabled, the import workflow skips the import confirm page and imports the data directly. See IMPORT_EXPORT_SKIP_ADMIN_CONFIRM.\n\nIdentify which class should be used for export :param request: The request object. :param form: The form object. :returns: The export Resource class.\n\nReturns available export formats.\n\nReturns ResourceClass subscriptable (list, tuple, …) to use for export. :param request: The request object. :returns: The Resource classes.\n\nReturns kwargs which will be passed to the Resource constructor. :param request: The request object. :param kwargs: Keyword arguments. :returns: The kwargs (dict)\n\nIf enabled, the export workflow skips the export form and exports the data directly. See IMPORT_EXPORT_SKIP_ADMIN_EXPORT_UI.\n\nIf enabled, the export workflow from Admin UI action menu skips the export form and exports the data directly. See IMPORT_EXPORT_SKIP_ADMIN_ACTION_EXPORT_UI.\n\nalias of SelectableFieldsExportForm\n\nReturns file_format representation for given queryset.\n\nConstructor. Called in the URLconf; can contain helpful extra keyword arguments, and other things.\n\nIf the form is valid, redirect to the supplied URL.",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Mixins",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "BaseImportExportMixin",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "BaseImportMixin",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "BaseExportMixin",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "ExportViewMixin",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "ExportViewFormMixin",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/api_mixins.rst.txt"
+  ]
+}

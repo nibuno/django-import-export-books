@@ -1,0 +1,63 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/testing.html",
+  "title": "Testing — django-import-export 4.3.15.dev28 documentation",
+  "content": "All tests can be run using tox simply by running the tox command. By default, tests are run against a local sqlite2 instance. pyenv can be used to manage multiple python installations.\n\nBy using Docker, you can also run tests against either a MySQL db and/or Postgres.\n\nThe IMPORT_EXPORT_TEST_TYPE must be set according to the type of tests you wish to run. Set to ‘postgres’ for postgres tests, and ‘mysql-innodb’ for mysql tests. If this environment variable is blank (or is any other value) then the default sqlite2 db will be used.\n\nThis process is scripted in runtests.sh. Assuming that you have docker installed on your system, running runtests.sh will run tox against sqlite2, mysql and postgres. You can edit this script to customise testing as you wish.\n\nNote that this is the process which is undertaken by CI builds.\n\nCoverage data is written in parallel mode by default (defined in pyproject.toml).\n\nA simple coverage report can be obtained with\n\nHowever this may omit lines which are db specific. A full coverage report can be obtained by running tox.\n\nAfter a tox run, you can view coverage data as follows:\n\nCheck the output of the above commands to locate the coverage HTML file.\n\nThere is a helper script available to generate and profile bulk loads. See scripts/bulk_import.py.\n\nYou can use this script by configuring environment variables as defined above, and then installing and running the test application. In order to run the helper script, you will need to install make install-test-requirements, and then add django-extensions to settings.py (INSTALLED_APPS).\n\nYou can then run the script as follows:\n\nYou can see console SQL debug logging by updating the LOGGING block in settings.py:",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Testing",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "MySql / Postgres tests",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Coverage",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Bulk testing",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Enable logging",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/testing.rst.txt"
+  ]
+}

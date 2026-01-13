@@ -1,0 +1,63 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+  "title": "Bulk imports — django-import-export 4.3.15.dev28 documentation",
+  "content": "import-export provides a ‘bulk mode’ to improve the performance of importing large datasets.\n\nIn normal operation, import-export will call instance.save() as each row in a dataset is processed. Bulk mode means that instance.save() is not called, and instances are instead added to temporary lists. Once the number of rows processed matches the batch_size value, then either bulk_create() or bulk_update() is called.\n\nIf batch_size is set to None, then bulk_create() / bulk_update() is only called once all rows have been processed.\n\nBulk deletes are also supported, by applying a filter() to the temporary object list, and calling delete() on the resulting query set.\n\nThe model’s save() method will not be called, and pre_save and post_save signals will not be sent.\n\nbulk_update() is only supported in Django 2.2 upwards.\n\nBulk operations do not work with many-to-many relationships.\n\nTake care to ensure that instances are validated before bulk operations are called. This means ensuring that resource fields are declared appropriately with the correct widgets. If an exception is raised by a bulk operation, then that batch will fail. It’s also possible that transactions can be left in a corrupted state. Other batches may be successfully persisted, meaning that you may have a partially successful import.\n\nIn bulk mode, exceptions are not linked to a row. Any exceptions raised by bulk operations are logged and returned as critical (non-validation) errors (and re-raised if raise_errors is true).\n\nIf there is the potential for concurrent writes to a table during a bulk operation, then you need to consider the potential impact of this. Refer to Concurrent writes for more information.\n\nFor more information, please read the Django documentation on bulk_create() and bulk_update().\n\nWhen using ForeignKeyWidget, the related object is looked up using QuerySet.get() during import. This lookup occurs once per imported row. For large imports, this can result in a significant number of database queries and impact performance.\n\nYou can subclass ForeignKeyWidget and override get_queryset() to limit the pool of candidate objects. However, overriding get_queryset() alone does not necessarily eliminate per-row database queries, because ForeignKeyWidget.clean() calls .get() for each row.\n\nIf import performance is critical, consider using CachedForeignKeyWidget instead. This widget caches all related objects in memory before the import begins, eliminating per-row database queries.\n\nConsider the following if you need to improve the performance of imports.\n\nEnable use_bulk for bulk create, update and delete operations (read Caveats first).\n\nIf your import is creating instances only (i.e. you are sure there are no updates), then set force_init_instance = True.\n\nIf your import is updating or creating instances, and you have a set of existing instances which can be stored in memory, use CachedInstanceLoader\n\nIf your import has relations on per-row basis, consider using CachedForeignKeyWidget for ForeignKey fields.\n\nBy default, import rows are compared with the persisted representation, and the difference is stored against each row result. If you don’t need this diff, then disable it with skip_diff = True.\n\nSetting batch_size to a different value is possible, but tests showed that setting this to None always resulted in worse performance in both duration and peak memory.\n\nScripts are provided to enable testing and benchmarking of bulk imports. See Bulk testing.",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Bulk imports",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Caveats",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "ForeignKeyWidget performance considerations",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Performance tuning",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Testing",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/bulk_import.rst.txt"
+  ]
+}

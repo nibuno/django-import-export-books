@@ -1,0 +1,608 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+  "title": "Changelog — django-import-export 4.3.15.dev28 documentation",
+  "content": "v5 introduces breaking changes and deprecations. Please refer to release notes.\n\nFixed issue where export forms were incorrectly showing import fields instead of export fields (2118)\n\nAdd support for Django 6.0, remove support for Python 3.9 (2112)\n\nFix Admin UI form field name collision for exports (2108)\n\nRemoved the deprecated get_valid_export_item_pks() method in favour of get_queryset() (1898)\n\nAdd Ukrainian translation (2132)\n\nFix: file_name is None in before_import_row when skip_import_confirm=True (2129)\n\nMinor documentation fix\n\nFix for export not retaining URI query params (2097)\n\nImproved field value extraction for dict-based querysets (2098)\n\nPerformance improvements for membership checks (2090)\n\nFix ForeignKeyWidget export issue (2117)\n\nImproved documentation for clean() methods (2115)\n\nDocumentation updates: JSONField export with attribute syntax (2100)\n\nDocumentation updates: handling TooManyFieldsSent (2103)\n\nUpdated Turkish translation (2101)\n\nUpdated Czech translation (2111)\n\nAllow specifying meta options in the model_resourcefactory (2078)\n\nAllow custom fields and methods in model_resourcefactory (2081)\n\nFAQ update to describe how to customize Excel exports (2088)\n\nui: fix error display twice issue on export field select page (2066)\n\nui: add ‘select all’ fields toggle on export page (2068)\n\nAdd Hebrew translation (2071)\n\nui: fix display of non field errors on import (2075)\n\nUpdate French translation (2042)\n\nAdd flag to ignore empty rows in XLSX import (2028)\n\nAdd support for Django 5.2 (2037)\n\nFix Chinese translation (2040)\n\nClarify documentation on creating non-existent relations (2029)\n\nUpdate Turkish translations (2031)\n\nHandle QuerySets called with values() on export (2011)\n\nUpdate all translations (2014)\n\nUpdated Farsi translation (2008)\n\nUpdated German translation (2012)\n\nFix imports for openpyxl (2005)\n\nAddition of import & export management commands (1992)\n\nHandle IllegalCharacterError in xlsx exports (2001)\n\nAdd __repr__ method to InvalidRow for improved debugging (2003)\n\nRemoved dependency files in favour of pyproject.toml (1982)\n\nDocumentation updates (1989)\n\nFix crash on export of tz-aware datetime to binary formats (1995)\n\nThis release contains breaking changes. Please refer to release notes.\n\nUpgraded tablib version (1627)\n\nDocument overriding formats (1868)\n\nConsistent queryset creation in ModelAdmin export mixin (1890)\n\nDeprecated get_valid_export_item_pks() in favour of get_queryset() (1890)\n\nImprove deprecation warning for ExportViewFormMixin to report at point of class definition (1900)\n\nFix export for fields with custom declared name (1903)\n\nHide the “Resource” form when it only has one option (1908)\n\nUpdate date, time and datetime widget render method to handle derived instance (1918)\n\nAdd support for Django 5.1 (1926)\n\nAccept numbers using the numeric separators of the current language in number widgets (FloatWidget(), IntegerWidget(), DecimalWidget()) (1927)\n\nAdded warning for declared fields excluded from fields whitelist (1930)\n\nFix v3 regression: handle native types on export to spreadsheet (1939)\n\nFix export button displayed on change screen when export permission not assigned (1942)\n\nFix crash for Django 5.1 when rows are skipped (1944)\n\nAllow callable in dehydrate method (1950)\n\nFix crash when Resource fields declared incorrectly (1963)\n\nUpdated dependencies (1979)\n\nRestore return value for deprecated method get_fields() (1897)\n\nImprove Error class (1882)\n\nFix response content assertions (1883)\n\nAdmin UI: display checkboxes before labels in export form (1884)\n\ndeprecated unused method: get_fields() (1885)\n\nremove django version check for custom storages (1889)\n\ndocs: clarify for_delete() documentation (1877)\n\nfix default Field returns empty string instead of ‘None’ (1872)\n\nrevert setting default value for attribute (1875)\n\ndocs: clarify widget configuration (1865)\n\nEnable skip export confirm page (1867)\n\nfix documentation to show correct method for reading form data on export (1859)\n\nAdmin UI: display both field name and column name on export (1857)\n\nfix export declared field with custom column name (1861)\n\nfix declared fields do not have correct Widget class set (1861)\n\ndocs: clarify changes to CharWidget in v4 (1862)\n\nrefactor Resource to remove code duplication in export (1863)\n\nAdded additional test for export field order (1848)\n\nfix crash on import when relation has custom PK (1853)\n\nfix crash on export from action when instance has custom PK (1854)\n\nFix for invalid build due to malformed README.rst (1851)\n\nRefactored DateWidget & DateTimeWidget to remove code duplication (1839)\n\nRelease note documentation updated (1840)\n\nAdded missing migration to example app (1843)\n\nFix admin UI display of field import order (1849)\n\nSupport widgets with CSS and JS media in ImportForm (1807)\n\nDocumentation updates (1833)\n\nClarified documentation when importing with import_id_fields (1836)\n\nre-add resource_class deprecation warning (1837)\n\nfixed Arabic translation for ‘import’ word (1838)\n\nfix export with custom column name (1821)\n\nfix allow column_name to be declared in fields list (1822)\n\nfix clash between key_is_id and use_natural_foreign_keys (1824)\n\nremove unreachable code (1825)\n\nfix issue with widget assignment for custom ForeignKey subclasses (1826)\n\nperformance: select of valid pks for export restricted to action exports (1827)\n\nfix crash on export with custom column name (1828)\n\nremove outdated datetime formatting logic (1830)\n\nfix crash on export when model has no id (1802)\n\nfix Widget crash when django Field subclass is used (1805)\n\nfix regression: allow imports when default import_id_field is not present (1813)\n\nRemoved v3 deprecations (1629)\n\nDeprecation of ExportViewFormMixin (1666)\n\nRefactor ordering logic (1626)\n\nRefactor ‘diff’ logic to avoid calling dehydrate methods\n\nRefactor declarations of fields, import_order and export_order to fix ordering issues\n\nrefactor to export HTML / formulae escaping updates (1638)\n\nremoved unused variable Result.new_record (1640)\n\nRefactor resources.py to standardise method args (1641)\n\nadded specific check for missing import_id_fields (1645)\n\nEnable optional tablib dependencies (1647)\n\nadded get_lookup_kwargs() to make it easier to override object lookup (1651)\n\nStandardised interface of render() (1657)\n\nFix declaring existing model field(s) in ModelResource altering export order (1663)\n\nAdded do_instance_save() helper method (1668)\n\nEnable defining Resource model as a string (1669)\n\nSupport multiple Resources for export (1671)\n\nSupport export from model change form (1687)\n\nImport form defaults to read-only field if only one format defined (1690)\n\nUpdated Admin UI to track deleted and skipped Imports (1691)\n\nAdded customizable MediaStorage (1708)\n\nAdded customization of Admin UI import error messages (1727)\n\nImprove output of error messages (1729)\n\nAdded feature: selectable fields for admin export view (1734)\n\nAdded specific check for declared import_id_fields not in dataset (1735)\n\nadded try / catch to add_instance_info() to handle unserializable instances (1767)\n\nAdd form error if source file contains invalid header (1780)\n\nRemove unneeded format method overrides (1785)\n\nSupport dynamic selection of Resource class based on request property (1787)\n\ndynamic widget parameters for CharField fixes ‘NOT NULL constraint’ error in xlsx (1485)\n\nfix cooperation with adminsortable2 (1633)\n\nRemoved unused method utils.original()\n\nFix deprecated log_action method (1673)\n\nfix multiple inheritance not setting options (1696)\n\nFix issue where declared Resource fields not defined in fields are still imported (1702)\n\nFixed handling of FieldError during Admin import (1755)\n\nFixed handling of django FieldError during Admin export (1756)\n\nAdd check for type to render() (1757)\n\nfix: YAML export does not work with SafeString (1762)\n\nfix: render() crashes if value is None (1771)\n\nfix form not being passed to get_import_resource_kwargs() (1789)\n\nFix: Missing default widget for PositiveBigIntegerField (1795)\n\nRefactor build process (1630)\n\nRefactored test_admin_integration(): split into smaller test modules (1662)\n\nRefactored test_resources(): split into smaller test modules (1672)\n\nUpdated docker-compose command with latest version syntax in runtests.sh (1686)\n\nRefactored resources into separate modules for declarative and options (1695)\n\nRefactored tests to remove dependencies between tests (1703)\n\nHandle python3.12 datetime deprecations (1705)\n\nRefactor test_resources.py into smaller modules (1733)\n\nUpdated test coverage to include error row when collect_failed_rows is True (1753)\n\nRemoved support for django 3.2 (1790)\n\nAdded test for widgets generating by model fields 1795)\n\nClarified skip_diff documentation (1655)\n\nImproved documentation relating to validation on import (1665)\n\nAdded FAQ entry for exporting large datasets (1706)\n\nRelocated admin integration section from advanced_usage.rst into new file (1713)\n\nUpdated Admin integration documentation to clarify how to save custom form values (1746)\n\nFix slow export with ForeignKey id (1717)\n\nupdated translations for release-4 (1775)\n\nUpdate translations for Russian language (1797)\n\nAdd additional django template block for extending import page (1776)\n\nPass get_export_resource_kwargs() to Resource constructor export_action() (1739)\n\nFix issue with model class passed to Resource constructor crashing on export (1745)\n\nFix indentation for skip_row docstring (1743)\n\nReturn kwargs by default from get_resource_kwargs() (1748)\n\nFix issue with highlight when using ‘light’ color scheme (1728)\n\nRemove unnecessary ChangeList queries to speed up export via Admin UI (1715)\n\nRespect color scheme override (1720)\n\nUpdate FAQ to cover skipping rows with validation errors (1721)\n\nAdded support for django5 (1634)\n\nShow list of exported fields in Admin UI (1685)\n\nAdded CONTRIBUTING.md\n\nAdded support for python 3.12 (1698)\n\nUpdate Finnish translations (1701)\n\nexport_admin_action() can be overridden by subclassing it in the ModelAdmin (1681)\n\nUpdated Spanish translations (1639)\n\nAdded documentation and tests for retrieving instance information after import (1643)\n\nrender() returns None as empty string if coerce_to_string is True (1650)\n\nUpdated documentation to describe how to select for export in Admin UI (1670)\n\nAdded catch for django5 deprecation warning (1676)\n\nUpdated and compiled message files (1678)\n\nAdded .readthedocs.yaml (1625)\n\nRemove ‘escape output’ deprecation (1618)\n\nRemoval of deprecated IMPORT_EXPORT_ESCAPE_OUTPUT_ON_EXPORT.\n\nDeprecation of IMPORT_EXPORT_ESCAPE_HTML_ON_EXPORT. Refer to installation docs.\n\nRefactoring and fix to support filtering exports (1579)\n\nStore instance and original object in RowResult (1584)\n\nAdd customizable blocks in import.html (1598)\n\nInclude ‘allowed formats’ settings (1606)\n\nAdd kwargs to enable CharWidget to return values as strings (1623)\n\nAdd Finnish translation (1588)\n\nUpdated ru translation (1604)\n\nFixed badly formatted translation string (1622)\n\nRemove ‘escape output’ deprecation (1618)\n\nDo not decode bytes when writing to MediaStorage (1615)\n\nFix for cache entries not removed (1621)\n\nAdded support for Django 4.2 (1570)\n\nAdd automatic formatting and linting (1571)\n\nremoved duplicate admin integration tests (1616)\n\nRemoved support for python3.7 and django4.0 (past EOL) (1618)\n\nUpdated documentation for interoperability with third party libraries (1614)\n\nEscape formulae on export to XLSX (1568)\n\nThis includes deprecation of IMPORT_EXPORT_ESCAPE_OUTPUT_ON_EXPORT.\n\nRefer to installation for alternatives.\n\nimport_export.formats.TablibFormat.export(): escape_output flag now deprecated in favour of escape_html and escape_formulae.\n\nRefactor methods so that args are declared correctly (1566)\n\nThis includes deprecations to be aware of if you have overridden export() or ImportExportFormBase.\n\nexport(): If passing queryset as the first arg, ensure this is passed as a named parameter.\n\nImportExportFormBase: If passing resources to __init__ as the first arg, ensure this is passed as a named parameter.\n\nUpdated setup.py (1564)\n\nAdded SECURITY.md (1563)\n\nUpdated FAQ to include workaround for RelatedObjectDoesNotExist exception (1562)\n\nPrevent error comparing m2m field of the new objects (1560)\n\nAdd documentation for passing data from admin form to Resource (1555)\n\nAdded new translations to Spanish and Spanish (Argentina) (1552)\n\nPass kwargs to import_set function (1448)\n\nFloat and Decimal widgets use LANGUAGE_CODE on export (1501)\n\nAdd optional dehydrate method param (1536)\n\nexceptions module has been undeprecated\n\nUpdated DE translation (1537)\n\nAdd option for single step import via Admin Site (1540)\n\nAdd support for m2m add (1545)\n\ncollect errors on bulk operations (1541)\n\nthis change causes bulk import errors to be logged at DEBUG level not EXCEPTION.\n\nImprove bulk import performance (1539)\n\nraise_errors has been deprecated as a kwarg in import_row()\n\nReduce memory footprint during import (1542)\n\ndocumentation updates (1533)\n\nadd detailed format parameter docstrings to DateWidget and TimeWidget (1532)\n\nfix xss vulnerability in html export (1546)\n\nSupport Python 3.11 (1508)\n\nuse get_list_select_related in ExportMixin (1511)\n\nbugfix: handle crash on start-up when change_list_template is a property (1523)\n\nbugfix: include instance info in row result when row is skipped (1526)\n\nbugfix: add **kwargs param to Resource constructor (1527)\n\nUpdated django-import-export-ci.yml to fix node.js deprecation\n\nbugfix: DateTimeWidget.clean() handles tz aware datetime (1499)\n\nUpdated translations for v3.0.0 release (1500)\n\nThis release makes some minor changes to the public API. If you have overridden any methods from the resources or widgets modules, you may need to update your implementation to accommodate these changes.\n\nThis fixes an issue where ManyToMany fields are not checked correctly in skip_row(). This means that skip_row() now takes row as a mandatory arg. If you have overridden skip_row() in your own implementation, you will need to add row as an arg.\n\nIf you have overridden skip_row() you can choose whether or not to skip rows if validation errors are present. The default behavior is to not to skip rows if there are validation errors during import.\n\nimport_export.resources.save_instance() now takes an additional mandatory argument: is_create. If you have overridden save_instance() in your own code, you will need to add this new argument.\n\nIf you have overridden clean() then you should update your method definition to reflect this change.\n\nwidgets.ForeignKeyWidget / widgets.ManyToManyWidget: The unused *args param has been removed from __init__(). If you have overridden ForeignKeyWidget or ManyToManyWidget you may need to update your implementation to reflect this change.\n\nExceptions raised during the import process are now presented as form errors, instead of being wrapped in a <H1> tag in the response. If you have any custom logic which uses the error written directly into the response, then this may need to be changed.\n\nPrevious ImportForm implementation was based on Django’s forms.Form, if you have any custom ImportForm you now need to inherit from import_export.forms.ImportExportFormBase.\n\nIf you are using admin mixins from this library in conjunction with code that overrides change_list_template (typically admin mixins from other libraries such as django-admin-sortable2 or reversion), object tools in the admin change list views may render differently now.\n\nIf you have created a custom template which extends any import_export template, then this may now cause a recursion error (see `1415 <https://github.com/django-import-export/django-import-export/pull/1415 >`_)\n\nIf you have made customizations to the import template then you may need to refactor these after the addition of block declarations.\n\nThis release adds some deprecations which will be removed in a future release.\n\nAdd support for multiple resources in ModelAdmin. (1223)\n\nThe *Mixin.resource_class accepting single resource has been deprecated and the new *Mixin.resource_classes accepting subscriptable type (list, tuple, …) has been added.\n\nSame applies to all of the get_resource_class, get_import_resource_class and get_export_resource_class methods.\n\nDeprecated exceptions.py (1372)\n\nRefactored form-related methods on ImportMixin / ExportMixin (1147)\n\nThe following are deprecated:\n\nget_confirm_import_form()\n\nDefault format selections set correctly for export action (1389)\n\nAdded option to store raw row values in each row’s RowResult (1393)\n\nAdd natural key support to ForeignKeyWidget (1371)\n\nOptimised default instantiation of CharWidget (1414)\n\nAllow custom change_list_template in admin views using mixins (1483)\n\nAdded blocks to import template (1488)\n\nimprove compatibility with previous ImportForm signature (1434)\n\nRefactored form-related methods on ImportMixin / ExportMixin (1147)\n\nInclude custom form media in templates (1038)\n\nRemove unnecessary files generated when running tox locally (1426)\n\nFixed Makefile coverage: added coverage combine\n\nFixed handling of LF character when using CacheStorage (1417)\n\nbugfix: skip_row() handles M2M field when UUID pk used\n\nFix broken link to tablib formats page (1418)\n\nFix broken image ref in README.rst\n\nbugfix: skip_row() fix crash when model has m2m field and none is provided in upload (1439)\n\nFix deprecation in example application: Added support for transitional form renderer (1451)\n\nIncreased test coverage, refactored CI build to use tox (1372)\n\nClarified issues around the usage of temporary storage (1306)\n\nFix deprecation in example application: Added support for transitional form renderer (1451)\n\nEscape HTML output when rendering decoding errors (1469)\n\nApply make_aware when the original file contains actual datetimes (1478)\n\nAutomatically guess the format of the file when importing (1460)\n\nUpdated import.css to support dark mode (1318)\n\nFix crash when import_data() called with empty Dataset and collect_failed_rows=True (1381)\n\nImprove Korean translation (1402)\n\nUpdate example subclass widget code (1407)\n\nDrop support for python3.6, django 2.2, 3.0, 3.1 (1408)\n\nAdd get_export_form() to ExportMixin (1409)\n\nRemoved django_extensions from example app settings (1356)\n\nAdded support for Django 4.0 (1357)\n\nBig integer support for Integer widget (788)\n\nRun compilemessages command to keep .mo files in sync (1299)\n\nAdded skip_html_diff meta attribute (1329)\n\nAdded python3.10 to tox and CI environment list (1336)\n\nAdd ability to rollback the import on validation error (1339)\n\nFix missing migration on example app (1346)\n\nFix crash when deleting via admin site (1347)\n\nUse Github secret in CI script instead of hard-coded password (1348)\n\nDocumentation: correct error in example application which leads to crash (1353)\n\nRevert ‘dark mode’ css: causes issues in django2.2 (1330)\n\nAdded guard for null ‘options’ to fix crash (1325)\n\nUpdated import.css to support dark mode (1323)\n\nFixed regression where overridden mixin methods are not called (1315)\n\nFix xls/xlsx import of Time fields (1314)\n\nAdded support for ‘to_encoding’ attribute (1311)\n\nRemoved travis and replaced with github actions for CI (1307)\n\nIncreased test coverage (1286)\n\nFix minor date formatting issue for date with years < 1000 (1285)\n\nTranslate the zh_Hans missing part (1279)\n\nRemove code duplication from mixins.py and admin.py (1277)\n\nFix example in BooleanWidget docs (1276)\n\nBetter support for Django main (1272)\n\ndon’t test Django main branch with python36,37 (1269)\n\nSupport Django 3.2 (1265)\n\nCorrect typo in Readme (1258)\n\nRephrase logical clauses in docstrings (1255)\n\nSupport multiple databases (1254)\n\nUpdate django master to django main (1251)\n\nAdd Farsi translated messages in the locale (1249)\n\nUpdate Russian translations (1244)\n\nAppend export admin action using ModelAdmin.get_actions (1241)\n\nFix minor mistake in makemigrations command (1233)\n\nRemove EOL Python 3.5 from CI (1228)\n\nCachedInstanceLoader defaults to empty when import_id is missing (1225)\n\nAdd kwargs to import_row, import_object and import_field (1190)\n\nCall load_workbook() with data_only flag (1095)\n\nChanged the default value for IMPORT_EXPORT_CHUNK_SIZE to 100. (1196)\n\nAdd translation for Korean (1218)\n\nUpdate linting, CI, and docs.\n\nFix deprecated Django 3.1 Signal(providing_args=...) usage.\n\nFix deprecated Django 3.1 django.conf.urls.url() usage.\n\nAdd missing translation keys for all languages (1144)\n\nAdded missing Portuguese translations (1145)\n\nAdd kazakh translations (1161)\n\nAdd bulk operations (1149)\n\nDeal with importing a BooleanField that actually has True, False, and None values. (1071)\n\nAdd row_number parameter to before_import_row, after_import_row and after_import_instance (1040)\n\nPaginate queryset if Queryset.prefetch_related is used (1050)\n\nFix DurationWidget handling of zero value (1117)\n\nMake import diff view only show headers for user visible fields (1109)\n\nMake confirm_form accessible in get_import_resource_kwargs and get_import_data_kwargs (994, 1108)\n\nInitialize Decimal with text value, fix #1035 (1039)\n\nAdds meta flag ‘skip_diff’ to enable skipping of diff operations (1045)\n\nUpdate docs (1097, 1114, 1122, 969, 1083, 1093)\n\nAdd support for tablib >= 1.0 (1061)\n\nAdd ability to install a subset of tablib supported formats and save some automatic dependency installations (needs tablib >= 1.0)\n\nUse column_name when checking row for fields (1056)\n\nFix deprecated Django 3.0 function usage (1054)\n\nPin tablib version to not use new major version (1063)\n\nFormat field is always shown on Django 2.2 (1007)\n\nRemoved support for Django < 2.0\n\nRemoved support for Python < 3.5\n\nfeat: Support for Postgres JSONb Field (904)\n\nfeat: Better surfacing of validation errors in UI / optional model instance validation (852)\n\nchore: Use modern setuptools in setup.py (862)\n\nchore: Update URLs to use https:// (863)\n\nchore: remove outdated workarounds\n\nchore: Run SQLite tests with in-memory database\n\nfix: Change logging level (832)\n\nfix: Changed get_instance() return val (842)\n\nfix: Django2.1 ImportExportModelAdmin export (797, 819)\n\nsetup: add django2.1 to test matrix\n\nJSONWidget for jsonb fields (803)\n\nAdd ExportActionMixin (809)\n\nAdd Import Export Permissioning #608 (804)\n\nwrite_to_tmp_storage() for import_action() (781)\n\nfollow relationships on ForeignKeyWidget (798)\n\nUpdate all pypi.python.org URLs to pypi.org\n\nadded test for tsv import\n\nadded unicode support for TSV for python 2\n\nAdded ExportViewMixin (692)\n\nMake deep copy of fields from class attr to instance attr (550)\n\nFix #612: NumberWidget.is_empty() should strip the value if string type (613)\n\nFix #713: last day isn’t included in results qs (779)\n\nuse Python3 compatible MySql driver in development (706)\n\nfix: warning U mode is deprecated in python 3 (776)\n\nrefactor: easier overriding widgets and default field (769)\n\nUpdated documentation regarding declaring fields (735)\n\ncustom js for action form also handles grappelli (719)\n\nUse ‘verbose_name’ in breadcrumbs to match Django default (732)\n\nAdd Resource.get_diff_class() (745)\n\nFix and add polish translation (747)\n\nRestore raise_errors to before_import (749)\n\nSwitch to semver versioning (687)\n\nRequire Django>=1.8 (685)\n\nupgrade tox configuration (737)\n\nskip_row override example (702)\n\nTesting against Django 2.0 should not fail (709)\n\nRefactor transaction handling (690)\n\nResolves #703 fields shadowed (703)\n\ndiscourage installation as a zipped egg (548)\n\nFixed middleware settings in test app for Django 2.x (696)\n\nRefactors and optimizations (686, 632, 684, 636, 631, 629, 635, 683)\n\nTravis tests for Django 2.0.x (691)\n\nRefactor import_row call by using keyword arguments (585)\n\nAdded {{ block.super }} call in block bodyclass in admin/base_site.html (582)\n\nAdd support for the Django DurationField with DurationWidget (575)\n\nGitHub bmihelac -> django-import-export Account Update (574)\n\nAdd intersphinx links to documentation (572)\n\nAdd Resource.get_import_fields() (569)\n\nFixed readme mistake (568)\n\nBugfix/fix m2m widget clean (515)\n\nAllow injection of context data for template rendered by import_action() and export_action() (544)\n\nBugfix/fix exception in generate_log_entries() (543)\n\nProcess import dataset and result in separate methods (542)\n\nBugfix/fix error in converting exceptions to strings (526)\n\nFix admin integration tests for the new “Import finished…” message, update Czech translations to 100% coverage. (596)\n\nMake import form type easier to override (604)\n\nAdd saves_null_values attribute to Field to control whether null values are saved on the object (611)\n\nAdd Bulgarian translations (656)\n\nAdd django 1.11 to TravisCI (621)\n\nMake Signals code example format correctly in documentation (553)\n\nAdd Django as requirement to setup.py (634)\n\nUpdate import of reverse for django 2.x (620)\n\nAdd Django-version classifiers to setup.py’s CLASSIFIERS (616)\n\nSome fixes for Django 2.0 (672)\n\nStrip whitespace when looking up ManyToMany fields (668)\n\nFix all ResourceWarnings during tests in Python 3.x (637)\n\nRemove downloads count badge from README since shields.io no longer supports it for PyPi (677)\n\nAdd coveralls support and README badge (678)\n\nFrench locale not in pypi (524)\n\nBugfix/fix undefined template variables (519)\n\nHide default value in diff when importing a new instance (458)\n\nAppend rows to Result object via function call to allow overriding (462)\n\nAdd get_resource_kwargs to allow passing request to resource (457)\n\nExpose Django user to get_export_data() and export() (447)\n\nAdd before_export and after_export hooks (449)\n\nfire events post_import, post_export events (440)\n\nadd **kwargs to export_data / create_dataset\n\nAdd before_import_row() and after_import_row() (452)\n\nAdd get_export_fields() to Resource to control what fields are exported (461)\n\nControl user-visible fields (466)\n\nFix diff for models using ManyRelatedManager\n\nHandle already cleaned objects (484)\n\nAdd after_import_instance hook (489)\n\nUse optimized xlsx reader (482)\n\nAdds resource_class of BookResource (re-adds) in admin docs (481)\n\nRequire POST method for process_import() (478)\n\nAdd SimpleArrayWidget to support use of django.contrib.postgres.fields.ArrayField (472)\n\nAdd new Diff class (477)\n\nFix #375: add row to widget.clean(), obj to widget.render() (479)\n\nRestore transactions for data import (480)\n\nRefactor the import-export templates (496)\n\nUpdate doc links to the stable version, update rtfd to .io (507)\n\nFixed typo in the Czech translation (495)\n\nAdd FloatWidget, use with model fields models.FloatField (433)\n\nFix default values in fields (431, 364)\n\nField constructor default argument is NOT_PROVIDED instead of None Field clean method checks value against Field.empty_values [None, ‘’]\n\nFIX: No static/ when installed via pip (427)\n\nAdd total # of imports and total # of updates to import success msg\n\nfix MediaStorage does not respect the read_mode parameter (416)\n\nReset SQL sequences when new objects are imported (59)\n\nLet Resource rollback if import throws exception (377)\n\nFixes error when a single value is stored in m2m relation field (177)\n\nAdd support for django.db.models.TimeField (381)\n\nadd xlsx import support\n\nfix for fields with a dyanmic default callable (360)\n\nAdd Django 1.9 support\n\nDjango 1.4 is not supported (348)\n\nFIX: importing csv in python 3\n\nFIX: importing csv UnicodeEncodeError introduced in 0.2.9 (347)\n\nAllow Field.save() relation following (344)\n\nSupport default values on fields (and models) (345)\n\nm2m widget: allow trailing comma (343)\n\nOpen csv files as text and not binary (127)\n\nuse the IntegerWidget for database-fields of type BigIntegerField (302)\n\nmake datetime timezone aware if USE_TZ is True (283).\n\nFix 0 is interpreted as None in number widgets (274)\n\nadd possibility to override tmp storage class (133, 251)\n\nbetter error reporting (259)\n\nDjango 1.8 compatibility\n\nadd attribute inheritance to Resource (140)\n\nmake the filename and user available to import_data (237)\n\nAdd to_encoding functionality (244)\n\nCall before_import before creating the instance_loader - fixes (193)\n\nadded use of get_diff_headers method into import.html template (158)\n\nTry to use OrderedDict instead of SortedDict, which is deprecated in Django 1.7 (157)\n\nfixed #105 unicode import\n\nremove invalid form action “form_url” (154)\n\nDo not convert numeric types to string (149)\n\nimplement export as an admin action (124)\n\nfix: get_value raised attribute error on model method call\n\nFixed XLS import on python 3. Optimized loop\n\nFixed properly skipping row marked as skipped when importing data from the admin interface.\n\nAllow Resource.export to accept iterables as well as querysets\n\nImprove error messages\n\nFIX: Properly handle NullBoleanField (115) - Backward Incompatible Change previously None values were handled as false\n\nAdd separator and field keyword arguments to ManyToManyWidget\n\nFIX: No support for dates before 1900 (93)\n\nRowResult now stores exception object rather than it’s repr\n\nAdmin integration - add EntryLog object for each added/updated/deleted instance\n\nFIX import_file_name form field can be use to access the filesystem (65)\n\nAdditional hooks for customizing the workflow (61)\n\nPrevent queryset caching when exporting (44)\n\nAllow unchanged rows to be skipped when importing (30)\n\nUpdate tests for Django 1.6 (57)\n\nAllow different ResourceClass to be used in ImportExportModelAdmin (49)\n\nUse field_name instead of column_name for field dehydration, FIX (36)\n\nHandle OneToOneField, FIX (17) - Exception when attempting access something on the related_name.\n\nexport filter not working (23)\n\nDB transactions support for importing data\n\nsupport for deleting objects during import\n\nAllowing a field to be ‘dehydrated’ with a custom method\n\nadded ExportForm to admin integration for choosing export file format\n\nrefactor admin integration to allow better handling of specific formats supported features and better handling of reading text files\n\ninclude all available formats in Admin integration",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Changelog",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "5.0.0 (unreleased)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.14 (2025-11-13)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.13 (2025-10-31)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.12 (2025-10-19)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.11 (2025-10-19)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.10 (2025-09-26)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.9 (2025-07-21)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.8 (2025-06-23)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.7 (2025-02-25)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.6 (2025-02-21)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.5 (2025-02-01)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.4 (2025-01-15)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.3 (2024-12-02)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.2 (2024-12-01)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.1 (2024-11-19)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.3.0 (2024-11-19)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.2.1 (2024-11-11)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.2.0 (2024-10-23)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.1.1 (2024-07-08)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.1.0 (2024-06-25)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.10 (2024-06-25)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.9 (2024-06-18)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.8 (2024-06-13)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.7 (2024-05-30)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.6 (2024-05-27)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.5 (2024-05-23)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.4 (2024-05-23)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.3 (2024-05-16)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.2 (2024-05-13)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.1 (2024-05-08)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "4.0.0 (2024-04-27)",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Deprecations",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Enhancements",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Fixes",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Development",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Documentation",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Performance",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "i18n",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.9 (2024-04-28)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.8 (2024-04-08)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.7 (2024-02-03)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.6 (2024-01-10)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.5 (2023-12-19)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.4 (2023-12-09)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.3 (2023-11-11)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.2 (2023-11-09)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.1 (2023-09-14)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.3.0 (2023-09-14)",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Deprecations",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Enhancements",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Internationalization",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Fixes",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Development",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Documentation",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.2.0 (2023-04-12)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.1.0 (2023-02-21)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.0.2 (2022-12-13)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.0.1 (2022-10-18)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "3.0.0 (2022-10-18)",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Breaking changes",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Deprecations",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Enhancements",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Fixes",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Development",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Documentation",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.9.0 (2022-09-14)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.8.0 (2022-03-31)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.7.1 (2021-12-23)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.7.0 (2021-12-07)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.6.1 (2021-09-30)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.6.0 (2021-09-15)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.5.0 (2020-12-30)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.4.0 (2020-10-05)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.3.0 (2020-07-12)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.2.0 (2020-06-01)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.1.0 (2020-05-02)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.0.2 (2020-02-16)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.0.1 (2020-01-15)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "2.0 (2019-12-03)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "1.2.0 (2019-01-10)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "1.1.0 (2018-10-02)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "1.0.1 (2018-05-17)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "1.0.0 (2018-02-13)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.7.0 (2018-01-17)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.6.1 (2017-12-04)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.6.0 (2017-11-23)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.5.1 (2016-09-29)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.5.0 (2016-09-01)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.4.5 (2016-04-06)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.4.4 (2016-03-22)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.4.3 (2016-03-08)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.4.2 (2015-12-18)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.4.1 (2015-12-11)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.4.0 (2015-12-02)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.3.1 (2015-11-20)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.3 (2015-11-20)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.9 (2015-11-12)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.8 (2015-07-29)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.7 (2015-05-04)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.6 (2014-10-09)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.5 (2014-10-04)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.4 (2014-09-18)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.3 (2014-07-01)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.2 (2014-04-18)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.1 (2014-02-20)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.2.0 (2014-01-30)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.1.6 (2014-01-21)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.1.5 (2013-11-29)",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.1.4",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.1.3",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.1.2",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.1.1",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "0.1.0",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/changelog.rst.txt"
+  ]
+}

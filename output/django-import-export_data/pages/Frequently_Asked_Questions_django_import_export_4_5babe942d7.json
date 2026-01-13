@@ -1,0 +1,196 @@
+{
+  "url": "https://django-import-export.readthedocs.io/en/latest/faq.html",
+  "title": "Frequently Asked Questions — django-import-export 4.3.15.dev28 documentation",
+  "content": "To submit a feature, to report a bug, or to ask a question, please refer our contributing guidelines.\n\nWe welcome contributions from the community.\n\nYou can help in the following ways:\n\nReporting bugs or issues.\n\nAnswering questions which arise on Stack Overflow or as Github issues.\n\nProviding translations for UI text.\n\nSuggesting features or changes.\n\nWe encourage you to read the contributing guidelines.\n\nThe following error message can be seen on import:\n\nThe following fields are declared in ‘import_id_fields’ but are not present in the resource\n\nThis indicates that the Resource has not been configured correctly, and the import logic fails. Specifically, the import process is attempting to use either the defined or default values for import_id_fields and no matching field has been detected in the resource fields. See Create or update model instances.\n\nIn cases where you are deliberately using generated fields in import_id_fields and these fields are not present in the dataset, then you need to modify the resource definition to accommodate this. See Using ‘dynamic fields’ to identify existing instances.\n\nThis issue can apply if you have implemented post-save Signals, and you are using the import workflow in the Admin interface. You will find that the post-save signal is called twice for each instance. The reason for this is that the model save() method is called twice: once for the ‘confirm’ step and once for the ‘import’ step. The call to save() during the ‘confirm’ step is necessary to prove that the object will be saved successfully, or to report any exceptions in the Admin UI if save failed. After the ‘confirm’ step, the database transaction is rolled back so that no changes are persisted.\n\nTherefore there is no way at present to stop save() being called twice, and there will always be two signal calls. There is a workaround, which is to set a temporary flag on the instance being saved:\n\nYour signal receiver can then include conditional logic to handle this flag:\n\nFurther discussion here and here.\n\nThere can be use cases where you need a runtime or user supplied value to be passed to a Resource. See How to dynamically set resource values.\n\nIf you need to set the same value on each instance created during import then refer to How to set a value on all imported instances prior to persisting.\n\nIn the usual configuration, a Resource maps to a single model. If you want to export data associated with relations to that model, then these values can be defined in the fields declaration. See Model relations.\n\nPlease refer to this issue.\n\nPlease refer to How to format UI error messages.\n\nWhen importing using the Admin site, it can be that the ids of the imported instances are different from those show in the preview step. This occurs because the rows are imported during ‘confirm’, and then the transaction is rolled back prior to the confirm step. Database implementations mean that sequence numbers may not be reused.\n\nConsider enabling IMPORT_EXPORT_SKIP_ADMIN_CONFIRM as a workaround.\n\nSee this issue for more detailed discussion.\n\nThis was an issue in v3 which is resolved in v4. The issue arises when importing from Excel because empty cells are converted to None during import. If the import process attempted to save a null value then a ‘NOT NULL’ exception was raised.\n\nIn v4, initialization checks to see if the Django CharField has blank set to True. If it does, then null values or empty strings are persisted as empty strings.\n\nIf it is necessary to persist None instead of an empty string, then the allow_blank widget parameter can be set:\n\nIt is possible to reference model relations by defining a field with the double underscore syntax. For example:\n\nThis means that during export, the relation will be followed and the referenced field will be added correctly to the export.\n\nIt works the same way when using attribute in Field. For example:\n\nThis does not work during import because the reference may not be enough to identify the correct relation instance. ForeignKeyWidget should be used during import. See the documentation explaining Foreign Key relations.\n\nSee the following responses on StackOverflow:\n\nhttps://stackoverflow.com/a/55046474/39296\n\nhttps://stackoverflow.com/questions/74802453/export-only-the-data-registered-by-the-user-django-import-export\n\nIf you want more control over how export data is formatted when exporting to Excel you can write a custom format which uses the openpyxl API. See the example here.\n\nIf export produces garbled or unexpected output, you may need to set the export encoding. See this issue.\n\nSee Creating non-existent relations.\n\nIf uploading large files, you may encounter time-outs. See Using celery and Bulk imports.\n\nThis could be due to hidden rows in Excel files. Hidden rows can be excluded using IMPORT_EXPORT_IMPORT_IGNORE_BLANK_LINES.\n\nRefer to this PR for more information.\n\nSee Foreign Key relations.\n\nThis can occur if a model defines a __str__() method which references a primary key or foreign key relation, and which is None during import. There is a workaround to deal with this issue. Refer to this comment.\n\nThis indicates that the change_list_template attribute could not be set, most likely due to a clash with a third party library. Refer to Interoperability with 3rd party libraries.\n\nRefer to this comment.\n\nYou may receive an error during import such as:\n\nThis usually happens because you are running the Admin site in a multi server or container environment. During import, the import file has to be stored temporarily and then retrieved for storage after confirmation. Therefore FileNotFoundError error can occur because the temp storage is not available to the server process after confirmation.\n\nTo resolve this, you should avoid using temporary file system storage in multi server environments.\n\nRefer to Import confirmation for more information.\n\nLarge datasets can be exported in a number of ways, depending on data size and preferences.\n\nYou can write custom scripts or Admin commands to handle the export. Output can be written to a local filesystem, cloud bucket, network storage etc. Refer to the documentation on exporting programmatically.\n\nYou can use the third party library django-import-export-celery to handle long-running exports.\n\nYou can enable export via admin action and then select items for export page by page in the Admin UI. This will work if you have a relatively small number of pages and can handle export to multiple files. This method is suitable as a one-off or as a simple way to export large datasets via the Admin UI.\n\nIf you want to modify the names of the columns on export, you can do so by overriding get_export_headers():\n\nRefer to logging configuration for more information.\n\nThis occurs when your data contains a character which cannot be rendered in Excel. You can configure import-export to sanitize these characters.",
+  "headings": [
+    {
+      "level": "h1",
+      "text": "Frequently Asked Questions",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "What’s the best way to communicate a problem, question, or suggestion?",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "How can I help?",
+      "id": ""
+    },
+    {
+      "level": "h2",
+      "text": "Common issues",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "import_id_fields error on import",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to handle double-save from Signals",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to dynamically set resource values",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to set a value on all imported instances prior to persisting",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to export from more than one table",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to import imagefield in excel cell",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to hide stack trace in UI error messages",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Ids incremented twice during import",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Not Null constraint fails when importing blank CharField",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Foreign key is null when importing",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to customize export data",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to customize Excel export data",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to set export file encoding",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to create relation during import if it does not exist",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to handle large file imports",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Performance issues or unexpected behavior during import",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to use field other than id in Foreign Key lookup",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "RelatedObjectDoesNotExist exception during import",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "‘failed to assign change_list_template attribute’ warning in logs",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to skip rows with validation errors during import",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "FileNotFoundError during Admin import ‘confirm’ step",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to export large datasets",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to change column names on export",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "How to configure logging",
+      "id": ""
+    },
+    {
+      "level": "h3",
+      "text": "Export to Excel gives IllegalCharacterError",
+      "id": ""
+    }
+  ],
+  "code_samples": [],
+  "patterns": [
+    {
+      "description": "Frequently Asked Questions What’s the best way to communicate a problem, question, or suggestion? To submit a feature, to report a bug, or to ask a question, please refer our contributing guidelines. How can I help? We welcome contributions from the community. You can help in the following ways: Reporting bugs or issues. Answering questions which arise on Stack Overflow or as Github issues. Providing translations for UI text. Suggesting features or changes. We encourage you to read the contributing guidelines. Common issues import_id_fields error on import The following error message can be seen on import: The following fields are declared in ‘import_id_fields’ but are not present in the resource This indicates that the Resource has not been configured correctly, and the import logic fails. Specifically, the import process is attempting to use either the defined or default values for import_id_fields and no matching field has been detected in the resource fields. See Create or update model instances. In cases where you are deliberately using generated fields in import_id_fields and these fields are not present in the dataset, then you need to modify the resource definition to accommodate this. See Using ‘dynamic fields’ to identify existing instances. How to handle double-save from Signals This issue can apply if you have implemented post-save Signals, and you are using the import workflow in the Admin interface. You will find that the post-save signal is called twice for each instance. The reason for this is that the model save() method is called twice: once for the ‘confirm’ step and once for the ‘import’ step. The call to save() during the ‘confirm’ step is necessary to prove that the object will be saved successfully, or to report any exceptions in the Admin UI if save failed. After the ‘confirm’ step, the database transaction is rolled back so that no changes are persisted. Therefore there is no way at present to stop save() being called twice, and there will always be two signal calls. There is a workaround, which is to set a temporary flag on the instance being saved: class BookResource(resources.ModelResource): def before_save_instance(self, instance, row, **kwargs): # during 'confirm' step, dry_run is True instance.dry_run = kwargs.get(\"dry_run\", False) class Meta: model = Book fields = ('id', 'name') Your signal receiver can then include conditional logic to handle this flag: @receiver(post_save, sender=Book) def my_callback(sender, **kwargs): instance = kwargs[\"instance\"] if getattr(instance, \"dry_run\"): # no-op if this is the 'confirm' step return else: # your custom logic here # this will be executed only on the 'import' step pass Further discussion here and here. How to dynamically set resource values There can be use cases where you need a runtime or user supplied value to be passed to a Resource. See How to dynamically set resource values. How to set a value on all imported instances prior to persisting If you need to set the same value on each instance created during import then refer to How to set a value on all imported instances prior to persisting. How to export from more than one table In the usual configuration, a Resource maps to a single model. If you want to export data associated with relations to that model, then these values can be defined in the fields declaration. See Model relations. How to import imagefield in excel cell Please refer to this issue. How to hide stack trace in UI error messages Please refer to How to format UI error messages. Ids incremented twice during import When importing using the Admin site, it can be that the ids of the imported instances are different from those show in the preview step. This occurs because the rows are imported during ‘confirm’, and then the transaction is rolled back prior to the confirm step. Database implementations mean that sequence numbers may not be reused. Consider enabling IMPORT_EXPORT_SKIP_ADMIN_CONFIRM as a workaround. See this issue for more detailed discussion. Not Null constraint fails when importing blank CharField This was an issue in v3 which is resolved in v4. The issue arises when importing from Excel because empty cells are converted to None during import. If the import process attempted to save a null value then a ‘NOT NULL’ exception was raised. In v4, initialization checks to see if the Django CharField has blank set to True. If it does, then null values or empty strings are persisted as empty strings. If it is necessary to persist None instead of an empty string, then the allow_blank widget parameter can be set: class BookResource(resources.ModelResource): name = Field(widget=CharWidget(allow_blank=False)) class Meta: model = Book See this issue. Foreign key is null when importing It is possible to reference model relations by defining a field with the double underscore syntax. For example: class BookResource(ModelResource): class Meta: model = Book fields = (\"author__name\",) This means that during export, the relation will be followed and the referenced field will be added correctly to the export. It works the same way when using attribute in Field. For example: class BookResource(ModelResource): author_name = Field(attribute=\"author__name\") class Meta: model = Book fields = (\"author_name\",) This does not work during import because the reference may not be enough to identify the correct relation instance. ForeignKeyWidget should be used during import. See the documentation explaining Foreign Key relations. How to customize export data See the following responses on StackOverflow: https://stackoverflow.com/a/55046474/39296 https://stackoverflow.com/questions/74802453/export-only-the-data-registered-by-the-user-django-import-export How to customize Excel export data If you want more control over how export data is formatted when exporting to Excel you can write a custom format which uses the openpyxl API. See the example here. How to set export file encoding If export produces garbled or unexpected output, you may need to set the export encoding. See this issue. How to create relation during import if it does not exist See Creating non-existent relations. How to handle large file imports If uploading large files, you may encounter time-outs. See Using celery and Bulk imports. Performance issues or unexpected behavior during import This could be due to hidden rows in Excel files. Hidden rows can be excluded using IMPORT_EXPORT_IMPORT_IGNORE_BLANK_LINES. Refer to this PR for more information. How to use field other than id in Foreign Key lookup See Foreign Key relations. RelatedObjectDoesNotExist exception during import This can occur if a model defines a __str__() method which references a primary key or foreign key relation, and which is None during import. There is a workaround to deal with this issue. Refer to this comment. ‘failed to assign change_list_template attribute’ warning in logs This indicates that the change_list_template attribute could not be set, most likely due to a clash with a third party library. Refer to Interoperability with 3rd party libraries. How to skip rows with validation errors during import Refer to this comment. FileNotFoundError during Admin import ‘confirm’ step You may receive an error during import such as: FileNotFoundError [Errno 2] No such file or directory: '/tmp/tmp5abcdef' This usually happens because you are running the Admin site in a multi server or container environment. During import, the import file has to be stored temporarily and then retrieved for storage after confirmation. Therefore FileNotFoundError error can occur because the temp storage is not available to the server process after confirmation. To resolve this, you should avoid using temporary file system storage in multi server environments. Refer to Import confirmation for more information. How to export large datasets Large datasets can be exported in a number of ways, depending on data size and preferences. You can write custom scripts or Admin commands to handle the export. Output can be written to a local filesystem, cloud bucket, network storage etc. Refer to the documentation on exporting programmatically. You can use the third party library django-import-export-celery to handle long-running exports. You can enable export via admin action and then select items for export page by page in the Admin UI. This will work if you have a relatively small number of pages and can handle export to multiple files. This method is suitable as a one-off or as a simple way to export large datasets via the Admin UI. How to change column names on export If you want to modify the names of the columns on export, you can do so by overriding get_export_headers(): class BookResource(ModelResource): def get_export_headers(self, fields=None): headers = super().get_export_headers(fields=fields) for i, h in enumerate(headers): if h == 'name': headers[i] = \"NEW COLUMN NAME\" return headers class Meta: model = Book How to configure logging Refer to logging configuration for more information. Export to Excel gives IllegalCharacterError This occurs when your data contains a character which cannot be rendered in Excel. You can configure import-export to sanitize these characters.",
+      "code": "import_id_fields"
+    },
+    {
+      "description": "It is possible to reference model relations by defining a field with the double underscore syntax. For example:",
+      "code": "class BookResource(ModelResource):\n\n    class Meta:\n        model = Book\n        fields = (\"author__name\",)"
+    },
+    {
+      "description": "It works the same way when using attribute in Field. For example:",
+      "code": "attribute"
+    }
+  ],
+  "links": [
+    "https://django-import-export.readthedocs.io/en/latest/index.html",
+    "https://django-import-export.readthedocs.io/en/latest/installation.html",
+    "https://django-import-export.readthedocs.io/en/latest/getting_started.html",
+    "https://django-import-export.readthedocs.io/en/latest/advanced_usage.html",
+    "https://django-import-export.readthedocs.io/en/latest/admin_integration.html",
+    "https://django-import-export.readthedocs.io/en/latest/import_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/export_workflow.html",
+    "https://django-import-export.readthedocs.io/en/latest/bulk_import.html",
+    "https://django-import-export.readthedocs.io/en/latest/management_commands.html",
+    "https://django-import-export.readthedocs.io/en/latest/celery.html",
+    "https://django-import-export.readthedocs.io/en/latest/testing.html",
+    "https://django-import-export.readthedocs.io/en/latest/faq.html",
+    "https://django-import-export.readthedocs.io/en/latest/screenshots.html",
+    "https://django-import-export.readthedocs.io/en/latest/release_notes.html",
+    "https://django-import-export.readthedocs.io/en/latest/changelog.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_admin.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_resources.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_widgets.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_fields.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_instance_loaders.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_mixins.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_tmp_storages.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_results.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_forms.html",
+    "https://django-import-export.readthedocs.io/en/latest/api_exceptions.html",
+    "https://django-import-export.readthedocs.io/en/latest/contributing.html",
+    "https://django-import-export.readthedocs.io/en/latest/_sources/faq.rst.txt"
+  ]
+}

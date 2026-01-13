@@ -4,3 +4,4 @@ Django==5.2
 django-import-export==4.3.14
 sqlparse==0.5.5
 tablib==3.9.0
+skill-seekers
